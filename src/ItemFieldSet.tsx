@@ -39,20 +39,20 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
         <Card key={index}>
           <CardContent> 
               <p>Describe Item Consumed</p>
-              <p>
+              <div>
                 <TextField type="text"
                            label="Product Name"
                            value={ item.name } 
                            onChange={ this.changeItemName(index) }
                 />
-              </p>
-              <p>
+              </div>
+              <div>
                 <TextField type="text"
                            label="Quantity"
                            value={ item.quantity } 
                            onChange={ this.changeItemQuantity(index) }
                 />
-              </p>
+              </div>
               {names}
           </CardContent>
         </Card>
