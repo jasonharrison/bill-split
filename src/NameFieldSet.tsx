@@ -7,23 +7,17 @@ import Typography from '@material-ui/core/Typography';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import * as React from 'react';
 
+interface INameFieldSetProps {
+  setNames: (names: string[]) => void;
+}
+
 interface INameFieldSetState {
   names: string[]
 }
 
-export class NamesFieldSet extends React.Component<any, INameFieldSetState>{
+export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
   public state = {
     names: ["", ""]
-  }
-
-  public add = () => {
-    this.setState({ names: [...this.state.names, ""] });
-  }
-
-  public changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newNames: string[] = [...this.state.names];
-    newNames[index] = event.target.value!;
-    this.setState({ names: newNames });
   }
 
   public render () {
@@ -49,11 +43,25 @@ export class NamesFieldSet extends React.Component<any, INameFieldSetState>{
             <div className="inputs" style={{marginBottom: '16px'}}>
               { names }
             </div>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={ this.setNames }>
               Split bill
             </Button>
         </CardContent>
       </Card>
     );
+  }
+
+  private setNames = () => {
+    this.props.setNames(this.state.names);
+  }
+
+  private add = () => {
+    this.setState({ names: [...this.state.names, ""] });
+  }
+
+  private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newNames: string[] = [...this.state.names];
+    newNames[index] = event.target.value!;
+    this.setState({ names: newNames });
   }
 }

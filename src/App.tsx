@@ -1,12 +1,10 @@
 import AppBar from '@material-ui/core/AppBar';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import * as React from 'react';
 import './App.css';
-import { NamesFieldSet } from './NameFieldSet'
+import { BillSplit  } from './BillSplit'
 
 class App extends React.Component {
   public render() {
@@ -20,19 +18,7 @@ class App extends React.Component {
           </Toolbar>
         </AppBar>
         <div style={{maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto', paddingTop: '32px'}}>
-          <Card>
-            <CardContent>
-              <Typography variant="headline" component="h2">
-                Easily split a restaurant or bar bill.
-              </Typography>
-              <Typography component="p">
-                Bill split is free, and it works offline.
-              </Typography>
-            </CardContent>
-          </Card>
-          <div style={{marginTop: '16px'}}>
-            <NamesFieldSet/>
-          </div>
+          <BillSplit />
         </div>
       </div>
     );
