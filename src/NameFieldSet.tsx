@@ -68,9 +68,10 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
   }
 
   private remove = (index: number) => (event: React.MouseEvent<HTMLElement>) => {
-    const names = [... this.state.names];
+    const names = [...this.state.names];
     names.splice(index, 1);
-    this.setState({ names })
+    this.setState({names});
+  }
 
   private nameArrayContainsDuplicates = () => {
     const uniqueNameSet:Set<string> = new Set();
