@@ -26,8 +26,8 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
       let minusBtn = null;
       if (index > 1) {
         minusBtn = <IconButton aria-label="Remove person" onClick={ this.remove(index) }>
-          <RemoveCircleIcon style={{height: '24px', width: '24x'}} />
-        </IconButton>
+                     <RemoveCircleIcon style={{height: '24px', width: '24x'}} />
+                   </IconButton>
       }
       return (<div key={ index }>
                 <TextField type="text"
