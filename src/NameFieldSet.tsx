@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import * as React from 'react';
 
 interface INameFieldSetProps {
@@ -22,12 +23,18 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
 
   public render () {
     const names = this.state.names.map((value: string, index: number) => {
+      let minusBtn = null;
+      if (index > 1) {
+        minusBtn = <IconButton aria-label="Remove person" onClick={ this.remove(index) }>
+          <RemoveCircleIcon style={{height: '24px', width: '24x'}} />
+        </IconButton>
+      }
       return (<div key={ index }>
                 <TextField type="text"
                            label="Name"
                            value={ value } 
                            onChange={ this.changeName(index) }
-                />
+                /> { minusBtn }
               </div>);
     });
 
@@ -57,6 +64,11 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
 
   private add = () => {
     this.setState({ names: [...this.state.names, ""] });
+  }
+
+  private remove = (index: number) => (event: React.MouseEvent<HTMLElement>) => {
+    this.state.names.splice(index, 1)
+    this.setState({names: this.state.names})
   }
 
   private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
