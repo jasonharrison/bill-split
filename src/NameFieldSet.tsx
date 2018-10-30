@@ -59,30 +59,30 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
     this.setState({ names: [...this.state.names, ""] });
   }
 
-  private arrayContainsDuplicates = (a: string[]) => {
-    const uniqueSet:Set<string> = new Set();
-    for(let i = 0; i <= a.length; i++) {
-      if (a[i] == null) {
+  private nameArrayContainsDuplicates = () => {
+    const uniqueNameSet:Set<string> = new Set();
+    for(let i = 0; i <= this.state.names.length; i++) {
+      if (this.state.names[i] == null) {
         continue
       }
-      const value = a[i].toLowerCase();
-      if (uniqueSet.has(value)) {
+      const lowerCaseName = this.state.names[i].toLowerCase();
+      if (uniqueNameSet.has(lowerCaseName)) {
         return true;
       }
-      uniqueSet.add(value)
+      uniqueNameSet.add(lowerCaseName)
     }
     return false;
   }
 
-  private arrayContainsString = (a: string[], s: string) => {
-    return a.indexOf(s) !== -1;
+  private nameArrayContainsEmptyName = () => {
+    return this.state.names.indexOf('') !== -1;
   }
 
   private isValid = () => {
-    if (this.arrayContainsDuplicates(this.state.names)) {
+    if (this.nameArrayContainsDuplicates()) {
       return true;
     }
-    return this.arrayContainsString(this.state.names, "")
+    return this.nameArrayContainsEmptyName();
   }
 
   private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
