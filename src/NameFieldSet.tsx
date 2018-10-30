@@ -34,7 +34,8 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
                            label="Name"
                            value={ value } 
                            onChange={ this.changeName(index) }
-                /> { minusBtn }
+                />
+                { minusBtn }
               </div>);
     });
 
@@ -67,8 +68,9 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
   }
 
   private remove = (index: number) => (event: React.MouseEvent<HTMLElement>) => {
-    this.state.names.splice(index, 1)
-    this.setState({names: this.state.names})
+    const names = [... this.state.names];
+    names.splice(index, 1);
+    this.setState({ names })
   }
 
   private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
