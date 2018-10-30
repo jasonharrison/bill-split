@@ -25,7 +25,7 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
         <div>
           <Card>
             <CardContent>
-              <Typography variant="headline" component="h2">
+              <Typography variant="h5" component="h2">
                 Easily split a restaurant or bar bill.
               </Typography>
               <Typography component="p">
