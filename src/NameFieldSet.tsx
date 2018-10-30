@@ -43,7 +43,7 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
             <div className="inputs" style={{marginBottom: '16px'}}>
               { names }
             </div>
-            <Button variant="contained" color="primary" onClick={ this.setNames }>
+            <Button variant="contained" color="primary" onClick={ this.setNames } disabled={ this.isValid() }>
               Split bill
             </Button>
         </CardContent>
@@ -57,6 +57,32 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
 
   private add = () => {
     this.setState({ names: [...this.state.names, ""] });
+  }
+
+  private nameArrayContainsDuplicates = () => {
+    const uniqueNameSet:Set<string> = new Set();
+    for(let i = 0; i <= this.state.names.length; i++) {
+      if (this.state.names[i] == null) {
+        continue
+      }
+      const lowerCaseName = this.state.names[i].toLowerCase();
+      if (uniqueNameSet.has(lowerCaseName)) {
+        return true;
+      }
+      uniqueNameSet.add(lowerCaseName)
+    }
+    return false;
+  }
+
+  private nameArrayContainsEmptyName = () => {
+    return this.state.names.indexOf('') !== -1;
+  }
+
+  private isValid = () => {
+    if (this.nameArrayContainsDuplicates()) {
+      return true;
+    }
+    return this.nameArrayContainsEmptyName();
   }
 
   private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
