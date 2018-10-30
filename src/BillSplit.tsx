@@ -12,7 +12,7 @@ interface IBillSplitState {
 }
 
 /** This component should hold the overall application state and manage which page to show. */
-export class BillSplit extends React.Component<{}, IBillSplitState>  { 
+export class BillSplit extends React.Component<{}, IBillSplitState>  {
   public state = {
     items: [],
     names: []
@@ -60,3 +60,5 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
     });
   }
 }
+
+export default BillSplit;
