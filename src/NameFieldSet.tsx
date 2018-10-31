@@ -51,7 +51,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
             <div className="inputs" style={{marginBottom: '16px'}}>
               { names }
             </div>
-            <Button variant="contained" color="primary" onClick={ this.setNames } disabled={ this.isValid() }>
+            <Button variant="contained" color="primary" onClick={ this.setNames } disabled={ !this.isValid() }>
               Split bill
             </Button>
         </CardContent>
@@ -94,9 +94,9 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
 
   private isValid = () => {
     if (this.nameArrayContainsDuplicates()) {
-      return true;
+      return false;
     }
-    return this.nameArrayContainsEmptyName();
+    return !this.nameArrayContainsEmptyName();
   }
 
   private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
