@@ -34,7 +34,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
                            label="Name"
                            value={ value } 
                            onChange={ this.changeName(index) }
-                          onKeyPress={ this.setNamesOnEnterButton }
+                           onKeyPress={ this.setNamesOnEnterButton }
                 />
                 { minusBtn }
               </div>);
