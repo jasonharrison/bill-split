@@ -34,7 +34,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
                            label="Name"
                            value={ value } 
                            onChange={ this.changeName(index) }
-                           onKeyPress={ this.isEnterButton }
+                          onKeyPress={ this.setNamesOnEnterButton }
                 />
                 { minusBtn }
               </div>);
@@ -93,7 +93,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
     return this.state.names.indexOf('') !== -1;
   }
 
-  private isEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
+  private setNamesOnEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" && this.isValid()) {
         this.setNames();
     }
