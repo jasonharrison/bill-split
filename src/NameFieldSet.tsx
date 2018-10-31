@@ -94,10 +94,8 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   }
 
   private isEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter") {
-      if (this.isValid() === true) {
+    if (event.key === "Enter" && this.isValid()) {
         this.setNames();
-      }
     }
   }
 
