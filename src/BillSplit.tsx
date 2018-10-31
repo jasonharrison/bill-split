@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 import * as React from 'react';
 import { IItem, ItemFieldSet } from './ItemFieldSet';
-import { NamesFieldSet } from './NameFieldSet';
+import { NameFieldSet } from './NameFieldSet';
 
 interface IBillSplitState {
   names: string[],
@@ -34,7 +34,7 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
             </CardContent>
           </Card>
           <div style={{marginTop: '16px'}}>
-            <NamesFieldSet setNames={this.setNames} />
+            <NameFieldSet setNames={this.setNames} />
           </div>
         </div>
       );

@@ -16,7 +16,7 @@ interface INameFieldSetState {
   names: string[]
 }
 
-export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
+export class NameFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
   public state = {
     names: ["", ""]
   }
