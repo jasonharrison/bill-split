@@ -34,6 +34,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
                            label="Name"
                            value={ value } 
                            onChange={ this.changeName(index) }
+                           onKeyPress={ this.isEnterButton }
                 />
                 { minusBtn }
               </div>);
@@ -90,6 +91,14 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
 
   private nameArrayContainsEmptyName = () => {
     return this.state.names.indexOf('') !== -1;
+  }
+
+  private isEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter") {
+      if (this.isValid() === true) {
+        this.setNames();
+      }
+    }
   }
 
   private isValid = () => {
