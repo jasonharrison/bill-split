@@ -34,6 +34,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
                            label="Name"
                            value={ value } 
                            onChange={ this.changeName(index) }
+                           onKeyPress={ this.setNamesOnEnterButton }
                 />
                 { minusBtn }
               </div>);
@@ -51,7 +52,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
             <div className="inputs" style={{marginBottom: '16px'}}>
               { names }
             </div>
-            <Button variant="contained" color="primary" onClick={ this.setNames } disabled={ this.isValid() }>
+            <Button variant="contained" color="primary" onClick={ this.setNames } disabled={ !this.isValid() }>
               Split bill
             </Button>
         </CardContent>
@@ -92,11 +93,17 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
     return this.state.names.indexOf('') !== -1;
   }
 
+  private setNamesOnEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter" && this.isValid()) {
+        this.setNames();
+    }
+  }
+
   private isValid = () => {
     if (this.nameArrayContainsDuplicates()) {
-      return true;
+      return false;
     }
-    return this.nameArrayContainsEmptyName();
+    return !this.nameArrayContainsEmptyName();
   }
 
   private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
