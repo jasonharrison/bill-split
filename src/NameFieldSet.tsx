@@ -52,7 +52,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
             <div className="inputs" style={{marginBottom: '16px'}}>
               { names }
             </div>
-            <Button variant="contained" color="primary" onClick={ this.setNames } disabled={ !this.isValid() }>
+            <Button id="splitBtn" variant="contained" color="primary" onClick={ this.setNames } disabled={ !this.isValid() }>
               Split bill
             </Button>
         </CardContent>
@@ -112,3 +112,5 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
     this.setState({ names: newNames });
   }
 }
+
+export default NameFieldSet;
