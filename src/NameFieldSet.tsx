@@ -61,6 +61,8 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   }
 
   private setNames = () => {
+    const newNames = this.removeBlankNamesFromNameArray(this.state.names);
+    this.setState({ names: newNames });
     this.props.setNames(this.state.names);
   }
 
@@ -90,13 +92,30 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   }
 
   private nameArrayContainsEmptyName = () => {
-    return this.state.names.indexOf('') !== -1;
+    const index = this.state.names.indexOf('');
+    return (index !== -1 && index <= 1);
+  }
+
+  private removeBlankNamesFromNameArray = (newNames: string[]) => {
+    for (let index = 0; index <= newNames.length; index++) {
+      if (this.isEmptyOrSpaces(newNames[index])) {
+        newNames.splice(index, 1);
+      }
+    }
+    return newNames;
   }
 
   private setNamesOnEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" && this.isValid()) {
         this.setNames();
     }
+  }
+
+  private isEmptyOrSpaces = (s: string) => {
+    if (s === undefined) {
+      return true;
+    }
+    return s === null || s.match(/^ *$/) !== null;
   }
 
   private isValid = () => {
