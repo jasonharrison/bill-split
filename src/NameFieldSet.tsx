@@ -16,7 +16,7 @@ interface INameFieldSetState {
   names: string[]
 }
 
-export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
+export class NameFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
   public state = {
     names: ["", ""]
   }
@@ -34,6 +34,7 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
                            label="Name"
                            value={ value } 
                            onChange={ this.changeName(index) }
+                           onKeyPress={ this.setNamesOnEnterButton }
                 />
                 { minusBtn }
               </div>);
@@ -51,7 +52,7 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
             <div className="inputs" style={{marginBottom: '16px'}}>
               { names }
             </div>
-            <Button variant="contained" color="primary" onClick={ this.setNames } disabled={ this.isValid() }>
+            <Button id="splitBtn" variant="contained" color="primary" onClick={ this.setNames } disabled={ !this.isValid() }>
               Split bill
             </Button>
         </CardContent>
@@ -92,11 +93,17 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
     return this.state.names.indexOf('') !== -1;
   }
 
+  private setNamesOnEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter" && this.isValid()) {
+        this.setNames();
+    }
+  }
+
   private isValid = () => {
     if (this.nameArrayContainsDuplicates()) {
-      return true;
+      return false;
     }
-    return this.nameArrayContainsEmptyName();
+    return !this.nameArrayContainsEmptyName();
   }
 
   private changeName = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,3 +112,5 @@ export class NamesFieldSet extends React.Component<INameFieldSetProps, INameFiel
     this.setState({ names: newNames });
   }
 }
+
+export default NameFieldSet;
