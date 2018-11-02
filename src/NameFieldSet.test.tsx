@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
+import { INameFieldSetState, NameFieldSet } from './NameFieldSet';
+
 import * as React from 'react';
-import NameFieldSet from './NameFieldSet';
 
 it('should have a disabled Split Bill button', () => {
     const mockFunction = jest.fn();
@@ -23,5 +24,5 @@ it('should ignore blank names', () => {
   nameFieldSetWrapper.setState({names: ["Jason", "Vinny", "", "Vitor", " "]});
   const splitBtn = nameFieldSetWrapper.find('#splitBtn');
   splitBtn.simulate('click');
-  expect(nameFieldSetWrapper.state().names).toEqual(["Jason", "Vinny", "Vitor"]);
+  expect((nameFieldSetWrapper.state() as INameFieldSetState).names).toEqual(["Jason", "Vinny", "Vitor"]);
 });
