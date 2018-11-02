@@ -12,8 +12,8 @@ interface INameFieldSetProps {
   setNames: (names: string[]) => void;
 }
 
-interface INameFieldSetState {
-  names: string[]
+export interface INameFieldSetState {
+  names: string[];
 }
 
 export class NameFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
