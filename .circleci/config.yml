@@ -1,38 +1,75 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
+defaults: &defaults
+    docker:
+        - image: circleci/node:8.10.0
+    working_directory: ~/tmp/circlci-now
+
 version: 2
 jobs:
-  build:
-    docker:
-    # specify the version you desire here
-    - image: circleci/node:7.10
-
-    # Specify service dependencies here if necessary
-    # CircleCI maintains a library of pre-built images
-    # documented at https://circleci.com/docs/2.0/circleci-images/
-    # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
-    steps:
-    - checkout
-
-    # Download and cache dependencies
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
-
-    - run: yarn install
-
-    - save_cache:
-        paths:
-        - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
-
-    # run tests!
-    - run: npm run test
-    - run: npm run verify-tsfmt
+    checkout:
+        <<: *defaults
+        steps:
+            - checkout
+            - attach_workspace:
+                at: ~/tmp/circlci-now
+            - restore_cache:
+                keys:
+                    - npm-cache-{{ .Branch }}-{{ checksum "package.json" }}
+                    - npm-cache-{{ .Branch }}
+                    - npm-cache-
+            - run:
+                name: NPM Install
+                command: npm install
+            - save_cache:
+                key: npm-cache-{{ .Branch }}-{{ checksum "package.json" }}
+                paths:
+                    - node_modules
+            - persist_to_workspace:
+                root: .
+                paths: .
+    unit-test:
+        <<: *defaults
+        steps:
+            - attach_workspace:
+                at: ~/tmp/circlci-now
+            - run:
+                name: NPM Install
+                command: npm install
+            - run:
+                name: Unit Test
+                command: npm run test
+            - run:
+                name: tsformat
+                command: npm run verify-tsfmt
+    deploy:
+        <<: *defaults
+        steps:
+            - attach_workspace:
+                at: ~/tmp/circlci-now
+            - run:
+                name: Install Now CLI
+                command: sudo npm install --global --unsafe-perm now
+            - deploy:
+                name: Deploy & Alias
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        now --public --token $ZEIT_TOKEN --local-config .now/now.master.json
+                        now --token $ZEIT_TOKEN --local-config .now/now.master.json alias
+                    elif [ "${CIRCLE_BRANCH}" == "dev" ]; then
+                        now --public --token $ZEIT_TOKEN --local-config .now/now.dev.json
+                        now --token $ZEIT_TOKEN --local-config .now/now.dev.json alias
+                    else
+                        ./.now/now.feature.sh
+                        now --public --token $ZEIT_TOKEN --local-config .now/now.feature.json
+                        now --token $ZEIT_TOKEN --local-config .now/now.feature.json alias
+                    fi
+workflows:
+    version: 2
+    test-deploy-purge:
+        jobs:
+            - checkout
+            - unit-test:
+                requires:
+                    - checkout
+            - deploy:
+                requires:
+                    - unit-test
