@@ -1,0 +1,15 @@
+{
+  "type": "static",
+  "static": {
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "type": "npm",
+  "forwardNpm": true,
+  "name": "bill-split-dev",
+  "alias": "dev.new.bill-split.com"
+}
