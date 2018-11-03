@@ -8,5 +8,8 @@
       }
     ]
   },
+  "type": "npm",
+  "forwardNpm": true,
+  "name": "bill-split-dev",
   "alias": "dev.new.bill-split.com"
 }

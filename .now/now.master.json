@@ -8,5 +8,8 @@
       }
     ]
   },
+  "type": "npm",
+  "forwardNpm": true,
+  "name": "bill-split-master",
   "alias": "new.bill-split.com"
 }
