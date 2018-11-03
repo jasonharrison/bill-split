@@ -21,39 +21,39 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
     names: ["", ""]
   }
 
-  public render () {
+  public render() {
     const names = this.state.names.map((value: string, index: number) => {
       let minusBtn = null;
       if (index > 1) {
-        minusBtn = <IconButton aria-label="Remove person" onClick={ this.remove(index) }>
-                     <RemoveCircleIcon style={{height: '24px', width: '24x'}} />
-                   </IconButton>
+        minusBtn = <IconButton aria-label="Remove person" onClick={this.remove(index)}>
+          <RemoveCircleIcon style={{ height: '24px', width: '24x' }} />
+        </IconButton>
       }
-      return (<div key={ index }>
-                <TextField type="text"
-                           label="Name"
-                           value={ value } 
-                           onChange={ this.changeName(index) }
-                           onKeyPress={ this.setNamesOnEnterButton }
-                />
-                { minusBtn }
-              </div>);
+      return (<div key={index}>
+        <TextField type="text"
+          label="Name"
+          value={value}
+          onChange={this.changeName(index)}
+          onKeyPress={this.setNamesOnEnterButton}
+        />
+        {minusBtn}
+      </div>);
     });
 
     return (
       <Card>
         <CardContent>
-            <Typography component="p">
-              Who is splitting the bill? 
-              <IconButton aria-label="Add person" onClick={ this.add }>
-                <PersonAddIcon />
-              </IconButton>
-            </Typography>
-            <div className="inputs" style={{marginBottom: '16px'}}>
-              { names }
-            </div>
-            <Button id="splitBtn" variant="contained" color="primary" onClick={ this.setNames } disabled={ !this.isValid() }>
-              Split bill
+          <Typography component="p">
+            Who is splitting the bill?
+              <IconButton aria-label="Add person" onClick={this.add}>
+              <PersonAddIcon />
+            </IconButton>
+          </Typography>
+          <div className="inputs" style={{ marginBottom: '16px' }}>
+            {names}
+          </div>
+          <Button id="splitBtn" variant="contained" color="primary" onClick={this.setNames} disabled={!this.isValid()}>
+            Split bill
             </Button>
         </CardContent>
       </Card>
@@ -74,12 +74,12 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   private remove = (index: number) => (event: React.MouseEvent<HTMLElement>) => {
     const names = [...this.state.names];
     names.splice(index, 1);
-    this.setState({names});
+    this.setState({ names });
   }
 
   private nameArrayContainsDuplicates = () => {
-    const uniqueNameSet:Set<string> = new Set();
-    for(let i = 0; i <= this.state.names.length; i++) {
+    const uniqueNameSet: Set<string> = new Set();
+    for (let i = 0; i <= this.state.names.length; i++) {
       if (this.state.names[i] == null) {
         continue
       }
@@ -107,7 +107,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
 
   private setNamesOnEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter" && this.isValid()) {
-        this.setNames();
+      this.setNames();
     }
   }
 

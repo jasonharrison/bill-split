@@ -33,17 +33,17 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
               </Typography>
             </CardContent>
           </Card>
-          <div style={{marginTop: '16px'}}>
+          <div style={{ marginTop: '16px' }}>
             <NameFieldSet setNames={this.setNames} />
           </div>
         </div>
       );
     }
     // Items page
-    return (<ItemFieldSet 
-              names={this.state.names}
-              setItems={this.setItems}
-            />);
+    return (<ItemFieldSet
+      names={this.state.names}
+      setItems={this.setItems}
+    />);
   }
 
   private setNames = (names: string[]) => {

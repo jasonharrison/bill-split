@@ -9,12 +9,14 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-scripts-ts": "3.1.0"
+    "tslint": "^5.11.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "tsfmt": "tsfmt --verify src/*ts*"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.14",
@@ -27,6 +29,7 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "react-test-renderer": "^16.6.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.1.6",
+    "typescript-formatter": "^7.2.2"
   }
 }
