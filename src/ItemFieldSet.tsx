@@ -160,10 +160,18 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     this.setState({ items });
   }
 
+  private itemsArrayContainsAtLeastOneItem = () => {
+    return this.state.items[0].name !== "" &&
+      this.state.items[0].quantity !== "" &&
+      this.state.items[0].price !== "" &&
+      this.state.items[0].payingIndexes.length > 0;
+  }
+
   private isPayingForItemNameToggle = (itemIndex: number, nameIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItem[] = [...this.state.items];
     if (items[itemIndex].payingIndexes.indexOf(nameIndex) !== -1) {
-      items[itemIndex].payingIndexes.splice(nameIndex, 1);
+      items[itemIndex].payingIndexes = items[itemIndex].payingIndexes
+        .filter(index => index !== nameIndex)
     }
     else {
       items[itemIndex].payingIndexes.push(nameIndex);
@@ -181,7 +189,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   }
 
   private isValid = () => {
-    return true;
+    return this.itemsArrayContainsAtLeastOneItem();
   }
 
   private setItems = () => {
