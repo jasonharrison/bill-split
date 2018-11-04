@@ -44,7 +44,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   public render() {
     const names = (itemIndex: number) => this.props.names.map((name: string, nameIndex: number) => {
       return (<FormControlLabel
-        key={nameIndex}
+        key={(itemIndex + "-" + nameIndex)}
         control={
           <Checkbox checked={this.isPayingForItem(itemIndex, nameIndex)} onChange={this.isPayingForItemNameToggle(itemIndex, nameIndex)} value={name} />
         }
