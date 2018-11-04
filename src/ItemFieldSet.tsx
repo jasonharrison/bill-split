@@ -17,7 +17,7 @@ export interface IItem {
   name: string,
   payingIndexes: number[], // Indexes of people who will pay for this item 
   price: string,
-  quantity: number
+  quantity: string
 }
 
 interface IItemFieldSetProps {
@@ -36,7 +36,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
         name: "",
         payingIndexes: [],
         price: "",
-        quantity: 1,
+        quantity: "1",
       }
     ]
   }
@@ -76,6 +76,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
               <TextField type="text"
                 value={item.quantity}
                 onChange={this.changeItemQuantity(itemIndex)}
+                onFocus={this.itemQuantityToggleFocus(itemIndex, true)}
+                onBlur={this.itemQuantityToggleFocus(itemIndex, false)}
               />
             </div>
             <br />
@@ -104,7 +106,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   }
 
   private add = () => {
-    const newItem: IItem = { isFocused: false, name: "", payingIndexes: [], quantity: 1, price: "" }
+    const newItem: IItem = { isFocused: false, name: "", payingIndexes: [], quantity: "1", price: "" }
     const items: IItem[] = [...this.state.items, newItem];
     this.setState({ items });
   }
@@ -125,7 +127,11 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
 
   private changeItemQuantity = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItem[] = [...this.state.items];
-    items[index].quantity = parseInt(event.target.value, 10);
+    const newQuantity = event.target.value.replace(/[^0-9]/, '');
+    if (!this.isNumber(newQuantity)) {
+      return
+    }
+    items[index].quantity = newQuantity;
     this.setState({ items });
     this.props.setItems(this.state.items);
   }
@@ -145,6 +151,15 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     this.setState({ items });
   }
 
+  private itemQuantityToggleFocus = (index: number, focused: boolean) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const items: IItem[] = [...this.state.items];
+    items[index].isFocused = focused;
+    if (!focused && items[index].quantity === "") {
+      items[index].quantity = "1"
+    }
+    this.setState({ items });
+  }
+
   private isPayingForItemNameToggle = (itemIndex: number, nameIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItem[] = [...this.state.items];
     if (items[itemIndex].payingIndexes.indexOf(nameIndex) !== -1) {
@@ -160,6 +175,11 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     const item: IItem = this.state.items[itemIndex];
     return item.payingIndexes.indexOf(nameIndex) !== -1
   }
+
+  private isNumber = (value: string | number) => {
+    return !isNaN(Number(value.toString()));
+  }
+
   private isValid = () => {
     return true;
   }
