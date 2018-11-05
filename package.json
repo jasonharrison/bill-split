@@ -9,6 +9,7 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-scripts-ts": "3.1.0",
+    "ts-money": "^0.4.6",
     "tslint": "^5.11.0"
   },
   "scripts": {
