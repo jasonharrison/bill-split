@@ -134,7 +134,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     this.setState({ items })
   }
 
-  private getItemQuantityString = (index: number, isFocused?: boolean) => {
+  private getItemQuantityString = (index: number) => {
     const quantity = this.state.items[index].quantity;
     if (this.state.items[index].isFocused && isNaN(quantity)) {
       return "";
