@@ -59,9 +59,10 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       />
       )
     });
-    const splitBillButton = (<Button id="splitBtn" variant="contained" color="primary" onClick={this.setItems} disabled={!this.isValid()}>
-      Split bill
-		</Button>);
+    const splitBillButton = (
+      <Button id="splitBtn" variant="contained" color="primary" onClick={this.setItems} disabled={!this.isValid()}>
+        Split bill
+      </Button>);
     const addButton = (<IconButton style={{ float: 'right' }} iaria-label="Add " onClick={this.add}>
       <AddCircleIcon color="secondary" />
     </IconButton>);
@@ -80,7 +81,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             <br />
             <div>
               <FormLabel component="legend">Quantity</FormLabel>
-              <TextField type="text"
+              <TextField type="number"
                 value={this.getItemQuantityString(itemIndex)}
                 onChange={this.changeItemQuantity(itemIndex)}
                 onFocus={this.itemQuantityToggleFocus(itemIndex, true)}
@@ -119,14 +120,14 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   }
 
   private getItemQuantityString = (index: number, isFocused?: boolean) => {
-    if (this.state.items[index].isFocused && isNaN(this.state.items[index].quantity)) {
+    const quantity = this.state.items[index].quantity;
+    if (this.state.items[index].isFocused && isNaN(quantity)) {
       return "";
     }
-    if (isNaN(this.state.items[index].quantity)) {
+    if (isNaN(quantity)) {
       return "1";
     }
-
-    return this.state.items[index].quantity.toString()
+    return quantity.toString()
   }
 
   private moneyDecimalToString = (money: number | string | undefined | null, isFocused?: boolean) => {
@@ -167,16 +168,17 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     const items: IItemInternal[] = [...this.state.items];
     const newQuantity = event.target.value.replace(/[^0-9]/, '');
     if (!this.isNumber(newQuantity)) {
-      items[index].quantity = 1;
+      items[index] = { ...items[index], quantity: 1 };
     } else {
-      items[index].quantity = parseInt(newQuantity, 10);
+      items[index] = { ...items[index], quantity: parseInt(newQuantity, 10) };
     }
     this.setState({ items });
   }
 
   private itemPriceToggleFocus = (index: number, focused: boolean) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItemInternal[] = [...this.state.items];
-    items[index].isFocused = focused;
+    items[index] = { ...items[index] }
+    items[index].isFocused = focused
     if (items[index].price === "") {
       return;
     }
@@ -193,7 +195,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     items[index].isFocused = focused;
     if (!focused) {
       if (isNaN(items[index].quantity) || items[index].quantity === 0) {
-        items[index].quantity = 1;
+        items[index] = { ...items[index], quantity: 1 }
       }
     }
     this.setState({ items });
@@ -209,11 +211,17 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   private isPayingForItemNameToggle = (itemIndex: number, nameIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItemInternal[] = [...this.state.items];
     if (items[itemIndex].payingIndexes.indexOf(nameIndex) !== -1) {
-      items[itemIndex].payingIndexes = items[itemIndex].payingIndexes
-        .filter(index => index !== nameIndex)
+      items[itemIndex] = {
+        ...items[itemIndex],
+        payingIndexes: items[itemIndex].payingIndexes
+          .filter(index => index !== nameIndex)
+      };
     }
     else {
-      items[itemIndex].payingIndexes.push(nameIndex);
+      items[itemIndex] = {
+        ...items[itemIndex],
+        payingIndexes: [...items[itemIndex].payingIndexes, nameIndex]
+      };
     }
     this.setState({ items });
   }
@@ -240,7 +248,6 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
         quantity: 1
       }
     });
-    this.setState({ items: this.state.items });
     this.props.setItems(newItems);
   }
 }
