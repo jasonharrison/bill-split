@@ -177,8 +177,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
 
   private itemPriceToggleFocus = (index: number, focused: boolean) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItemInternal[] = [...this.state.items];
-    items[index] = { ...items[index] }
-    items[index].isFocused = focused
+    items[index] = { ...items[index], isFocused: focused }
     if (items[index].price === "") {
       return;
     }
@@ -242,10 +241,10 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   private setItems = () => {
     const newItems: IItem[] = this.state.items.map((item: IItemInternal) => {
       return {
-        name: "",
-        payingIndexes: [],
+        name: item.name,
+        payingIndexes: item.payingIndexes,
         price: this.moneyStringToDecimal(item.price),
-        quantity: 1
+        quantity: item.quantity,
       }
     });
     this.props.setItems(newItems);
