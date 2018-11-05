@@ -8,6 +8,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { Currencies, Money } from 'ts-money';
 
 import * as React from 'react';
@@ -67,10 +68,18 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       <AddCircleIcon color="secondary" />
     </IconButton>);
     const itemsArray = this.state.items.map((item: IItemInternal, itemIndex: number) => {
+      let minusBtn = null;
+      if (itemIndex > 0) {
+        minusBtn = (
+          <IconButton aria-label="Remove item" onClick={this.remove(itemIndex)}>
+            <RemoveCircleIcon style={{ height: '24px', width: '24px' }} />
+          </IconButton>)
+      }
       return (<div key={itemIndex}>
         <Card key={itemIndex}>
           <CardContent>
             <p>Describe Item Consumed</p>
+            {minusBtn}
             <div>
               <TextField type="text"
                 label="Product Name"
@@ -117,6 +126,12 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     const newItem: IItemInternal = { isFocused: false, name: "", payingIndexes: [], quantity: 1, price: "" }
     const items: IItemInternal[] = [...this.state.items, newItem];
     this.setState({ items });
+  }
+
+  private remove = (itemIndex: number) => (event: React.MouseEvent<HTMLElement>) => {
+    const items: IItemInternal[] = [...this.state.items];
+    items.splice(itemIndex, 1);
+    this.setState({ items })
   }
 
   private getItemQuantityString = (index: number, isFocused?: boolean) => {
