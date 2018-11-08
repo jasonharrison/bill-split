@@ -48,6 +48,7 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
     } else {
       // Result page
       return (<Result
+        names={this.state.names}
         items={this.state.items}
       />)
     }
