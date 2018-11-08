@@ -47,14 +47,16 @@ jobs:
                 at: ~/tmp/circlci-now
             - run:
                 name: Install Now CLI
-                command: sudo npm install --global --unsafe-perm now
+                command: sudo npm install --global --unsafe-perm now now-serve
             - deploy:
                 name: Deploy & Alias
                 command: |
                     if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        ./.now/now.master.sh
                         now --public --token $ZEIT_TOKEN --local-config .now/now.master.json
                         now --token $ZEIT_TOKEN --local-config .now/now.master.json alias
                     elif [ "${CIRCLE_BRANCH}" == "dev" ]; then
+                        ./.now/now.dev.sh
                         now --public --token $ZEIT_TOKEN --local-config .now/now.dev.json
                         now --token $ZEIT_TOKEN --local-config .now/now.dev.json alias
                     else

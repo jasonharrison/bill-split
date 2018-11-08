@@ -15,6 +15,7 @@ class App extends React.Component {
   });
 
   public render() {
+    const circleVersionInfo = null; // for CircleCI
     return (
       <MuiThemeProvider theme={this.theme}>
         <div>
@@ -22,6 +23,9 @@ class App extends React.Component {
             <Toolbar>
               <Typography variant="h6" color="inherit">
                 Bill Split
+              </Typography>
+              <Typography variant="body2" color="inherit" style={{ marginLeft: 'auto' }}>
+                {circleVersionInfo}
               </Typography>
             </Toolbar>
           </AppBar>
