@@ -134,7 +134,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     this.setState({ items })
   }
 
-  private getItemQuantityString = (index: number, isFocused?: boolean) => {
+  private getItemQuantityString = (index: number) => {
     const quantity = this.state.items[index].quantity;
     if (this.state.items[index].isFocused && isNaN(quantity)) {
       return "";
@@ -222,6 +222,13 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       this.state.items[0].payingIndexes.length > 0;
   }
 
+  private isEmptyOrSpaces = (s: string) => {
+    if (s === undefined) {
+      return true;
+    }
+    return s === null || s.match(/^ *$/) !== null;
+  }
+
   private isPayingForItemNameToggle = (itemIndex: number, nameIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItemInternal[] = [...this.state.items];
     if (items[itemIndex].payingIndexes.indexOf(nameIndex) !== -1) {
@@ -254,14 +261,19 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   }
 
   private setItems = () => {
-    const newItems: IItem[] = this.state.items.map((item: IItemInternal) => {
-      return {
-        name: item.name,
-        payingIndexes: item.payingIndexes,
-        price: this.moneyStringToDecimal(item.price),
-        quantity: item.quantity,
-      }
-    });
+    const newItems: IItem[] = this.state.items.filter(item =>
+      !this.isEmptyOrSpaces(item.name) &&
+      !this.isEmptyOrSpaces(item.price) &&
+      item.quantity > 0 &&
+      item.payingIndexes.length > 0)
+      .map((item: IItemInternal) => {
+        return {
+          name: item.name,
+          payingIndexes: item.payingIndexes,
+          price: this.moneyStringToDecimal(item.price),
+          quantity: item.quantity,
+        }
+      });
     this.props.setItems(newItems);
   }
 }
