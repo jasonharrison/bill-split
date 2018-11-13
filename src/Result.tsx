@@ -15,7 +15,10 @@ export class Result extends React.Component<IResultSetProps> {
         const name = this.getNameByIndex(payingIndex);
         const perPersonCost = (item.price * item.quantity) / item.payingIndexes.length;
         if (name in namesPaying) {
-          namesPaying[name].items.push(<p key={(itemIndex + "-" + payingIndex)}><i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b></p>);
+          namesPaying[name].items.push(
+            <p key={(itemIndex + "-" + payingIndex)}>
+              <i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b>
+            </p>);
           namesPaying[name].personTotal += perPersonCost
         } else {
           namesPaying[name] = { personTotal: perPersonCost, items: [<p key={(itemIndex + "-" + payingIndex)}><i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b></p>] };
@@ -40,7 +43,5 @@ export class Result extends React.Component<IResultSetProps> {
   private getNameByIndex = (index: number) => {
     return this.props.names[index];
   }
-
-  
 
 }
