@@ -4,7 +4,7 @@ const moneyDecimalToString = (money: number | string | undefined | null, isFocus
   if (typeof (money) === "string") {
     return money;
   }
-  if (money === undefined || money === 0 || money === null || isNaN(money)) {
+  if (!money) {
     return "";
   }
   if (isFocused) {
