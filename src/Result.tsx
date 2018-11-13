@@ -1,3 +1,6 @@
+import { CardContent } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import moneyDecimalToString from './Helpers';
 import { IItem } from './ItemFieldSet';
@@ -29,11 +32,15 @@ export class Result extends React.Component<IResultSetProps> {
       <div>
         {
           Object.keys(namesPaying).map((key, index) => (
-            <div key={key + " " + index}>
-              <p><b>{key}</b>:</p>
-              {namesPaying[key].items}
-              <p><b>{key}'s</b> total: <b>{moneyDecimalToString(namesPaying[key].personTotal)}</b></p>
-            </div>
+            <Card key={key + " " + index}>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {key}
+                </Typography>
+                {namesPaying[key].items}
+                <p><b>{key}'s</b> total: <b>{moneyDecimalToString(namesPaying[key].personTotal)}</b></p>
+              </CardContent>
+            </Card>
           ))
         }
       </div>
