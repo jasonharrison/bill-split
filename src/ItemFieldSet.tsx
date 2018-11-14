@@ -70,11 +70,15 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     </IconButton>);
     const itemsArray = this.state.items.map((item: IItemInternal, itemIndex: number) => {
       let minusBtn = null;
+      let autoFocus = false;
       if (itemIndex > 0) {
         minusBtn = (
           <IconButton aria-label="Remove item" onClick={this.remove(itemIndex)}>
             <RemoveCircleIcon style={{ height: '24px', width: '24px' }} />
           </IconButton>)
+      }
+      if (itemIndex === 0) {
+        autoFocus = true;
       }
       return (<div key={itemIndex}>
         <Card key={itemIndex}>
@@ -83,6 +87,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             {minusBtn}
             <div>
               <TextField type="text"
+                autoFocus={autoFocus}
                 label="Product Name"
                 value={item.name}
                 onChange={this.changeItemName(itemIndex)}
