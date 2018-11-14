@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { Currencies, Money } from 'ts-money';
+import moneyDecimalToString from './Helpers';
 
 import * as React from 'react';
 
@@ -101,7 +102,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             <div>
               <FormLabel component="legend">Price</FormLabel>
               <TextField type="text"
-                value={this.moneyDecimalToString(item.price, item.isFocused)}
+                value={moneyDecimalToString(item.price, item.isFocused)}
                 onChange={this.changeItemPrice(itemIndex)}
                 onFocus={this.itemPriceToggleFocus(itemIndex, true)}
                 onBlur={this.itemPriceToggleFocus(itemIndex, false)}
@@ -143,19 +144,6 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       return "1";
     }
     return quantity.toString()
-  }
-
-  private moneyDecimalToString = (money: number | string | undefined | null, isFocused?: boolean) => {
-    if (typeof (money) === "string") {
-      return money;
-    }
-    if (money === undefined || money === 0 || money === null || isNaN(money)) {
-      return "";
-    }
-    if (isFocused) {
-      return money.toString();
-    }
-    return "$" + Money.fromDecimal(money, Currencies.USD, Math.round).toString();
   }
 
   private moneyStringToDecimal = (money: string | null) => {
