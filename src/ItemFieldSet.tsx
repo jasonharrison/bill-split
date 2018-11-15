@@ -7,7 +7,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { Currencies, Money } from 'ts-money';
 import moneyDecimalToString from './Helpers';
@@ -62,12 +64,16 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       )
     });
     const splitBillButton = (
-      <Button id="splitBtn" variant="contained" color="primary" onClick={this.setItems} disabled={!this.isValid()}>
+      <Button id="splitBtn" variant="contained" style={{ float: 'right' }} color="primary" onClick={this.setItems} disabled={!this.isValid()}>
         Split bill
+        <NavigateNextIcon style={{marginLeft: '8px'}} />
       </Button>);
-    const addButton = (<IconButton style={{ float: 'right' }} iaria-label="Add " onClick={this.add}>
-      <AddCircleIcon color="secondary" />
-    </IconButton>);
+    const addButton = (
+      <Button variant="contained" color="secondary" 
+              aria-label="Add Item" onClick={this.add}>
+        <AddCircleIcon style={{marginRight: '8px'}} />
+        Add Item
+      </Button>);
     const itemsArray = this.state.items.map((item: IItemInternal, itemIndex: number) => {
       let minusBtn = null;
       if (itemIndex > 0) {
@@ -77,16 +83,15 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
           </IconButton>)
       }
       return (<div key={itemIndex}>
-        <Card key={itemIndex}>
+        <Card key={itemIndex} style={{ marginTop: '16px', marginBottom: '16px' }}>
           <CardContent>
-            <p>Describe Item Consumed</p>
-            {minusBtn}
             <div>
               <TextField type="text"
                 label="Product Name"
                 value={item.name}
                 onChange={this.changeItemName(itemIndex)}
               />
+              {minusBtn}
             </div>
             <br />
             <div>
@@ -120,7 +125,16 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       </div>
       );
     });
-    return (<div>{itemsArray}{splitBillButton}{addButton}</div>)
+    return (
+      <div>
+        <Typography variant="h5" component="h2">
+          Describe Items
+        </Typography>
+        {itemsArray}
+        {addButton}
+        {splitBillButton}
+      </div>
+    );
   }
 
   private add = () => {
