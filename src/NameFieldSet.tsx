@@ -31,7 +31,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
         </IconButton>
       }
       return (
-        <div key={index} style={{marginTop: '8px'}}>
+        <div key={index} style={{ marginTop: '8px' }}>
           <TextField type="text"
             label="Name"
             value={value}
@@ -51,7 +51,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
         <Typography component="p">
           Bill split is free, and it works offline.
         </Typography>
-        <Card style={{marginBottom:'16px', marginTop: '16px'}}>
+        <Card style={{ marginBottom: '16px', marginTop: '16px' }}>
           <CardContent>
             <Typography component="p">
               Who is splitting the bill?
@@ -62,17 +62,17 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
           </CardContent>
         </Card>
         <Button variant="contained" color="secondary" aria-label="Add person" onClick={this.add}>
-          <PersonAddIcon style={{marginRight: '8px'}} />
+          <PersonAddIcon style={{ marginRight: '8px' }} />
           Add person
         </Button>
-        <Button id="splitBtn" 
-                style={{float: 'right'}}
-                variant="contained" 
-                color="primary" 
-                onClick={this.setNames} 
-                disabled={!this.isValid()}>
+        <Button id="splitBtn"
+          style={{ float: 'right' }}
+          variant="contained"
+          color="primary"
+          onClick={this.setNames}
+          disabled={!this.isValid()}>
           Split bill
-          <NavigateNextIcon style={{marginLeft: '8px'}} />
+          <NavigateNextIcon style={{ marginLeft: '8px' }} />
         </Button>
       </div>
     );

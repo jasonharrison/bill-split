@@ -66,12 +66,12 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     const splitBillButton = (
       <Button id="splitBtn" variant="contained" style={{ float: 'right' }} color="primary" onClick={this.setItems} disabled={!this.isValid()}>
         Split bill
-        <NavigateNextIcon style={{marginLeft: '8px'}} />
+        <NavigateNextIcon style={{ marginLeft: '8px' }} />
       </Button>);
     const addButton = (
-      <Button variant="contained" color="secondary" 
-              aria-label="Add Item" onClick={this.add}>
-        <AddCircleIcon style={{marginRight: '8px'}} />
+      <Button variant="contained" color="secondary"
+        aria-label="Add Item" onClick={this.add}>
+        <AddCircleIcon style={{ marginRight: '8px' }} />
         Add Item
       </Button>);
     const itemsArray = this.state.items.map((item: IItemInternal, itemIndex: number) => {

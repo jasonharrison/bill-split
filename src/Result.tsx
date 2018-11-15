@@ -27,12 +27,12 @@ export class Result extends React.Component<IResultSetProps> {
             </p>);
           namesPaying[name].personTotal += perPersonCost
         } else {
-          namesPaying[name] = {  
+          namesPaying[name] = {
             items: [
               <p key={(itemIndex + "-" + payingIndex)}>
                 <i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b>
               </p>
-            ], 
+            ],
             personTotal: perPersonCost
           };
         }
@@ -40,7 +40,7 @@ export class Result extends React.Component<IResultSetProps> {
     });
     const resetButton = (
       <Button variant="contained" color="primary" onClick={this.reset}>
-        <NavigateBeforeIcon style={{marginRight: '8px'}} />
+        <NavigateBeforeIcon style={{ marginRight: '8px' }} />
         Start again
       </Button>
     );
@@ -48,7 +48,7 @@ export class Result extends React.Component<IResultSetProps> {
       <div>
         {
           Object.keys(namesPaying).map((key, index) => (
-            <Card key={key + " " + index} style={{marginBottom: '16px'}}>
+            <Card key={key + " " + index} style={{ marginBottom: '16px' }}>
               <CardContent>
                 <Typography variant="h5" component="h2">
                   {key}

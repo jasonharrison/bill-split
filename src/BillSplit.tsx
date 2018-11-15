@@ -18,8 +18,8 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
   public render() {
     if (this.state.names.length === 0) {
       // Insert names page
-      return (<NameFieldSet 
-        setNames={this.setNames} 
+      return (<NameFieldSet
+        setNames={this.setNames}
       />);
     } else if (this.state.items.length === 0) {
       // Items page
