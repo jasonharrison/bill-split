@@ -1,4 +1,3 @@
-import Typography from "@material-ui/core/Typography/Typography";
 import { mount } from 'enzyme';
 import * as React from 'react';
 import BillSplit from './BillSplit';
