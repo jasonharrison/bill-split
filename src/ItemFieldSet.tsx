@@ -5,7 +5,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -78,9 +77,11 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       let minusBtn = null;
       if (itemIndex > 0) {
         minusBtn = (
-          <IconButton aria-label="Remove item" onClick={this.remove(itemIndex)}>
-            <RemoveCircleIcon style={{ height: '24px', width: '24px' }} />
-          </IconButton>)
+          <Button variant="contained" color="secondary" style={{ float: 'right', marginBottom: '16px' }}
+            aria-label="Remove Item" onClick={this.remove(itemIndex)}>
+            <RemoveCircleIcon style={{ marginRight: '8px' }} />
+            Remove Item
+          </Button>);
       }
       return (<div key={itemIndex}>
         <Card key={itemIndex} style={{ marginTop: '16px', marginBottom: '16px' }}>
@@ -91,7 +92,6 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
                 value={item.name}
                 onChange={this.changeItemName(itemIndex)}
               />
-              {minusBtn}
             </div>
             <br />
             <div>
@@ -120,6 +120,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
                 {names(itemIndex)}
               </FormGroup>
             </div>
+            {minusBtn}
           </CardContent>
         </Card>
       </div>
