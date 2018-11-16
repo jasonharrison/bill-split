@@ -30,17 +30,16 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
           <RemoveCircleIcon style={{ height: '24px', width: '24px' }} />
         </IconButton>
       }
-      return (
-        <div key={index} style={{ marginTop: '8px' }}>
-          <TextField type="text"
-            label="Name"
-            value={value}
-            onChange={this.changeName(index)}
-            onKeyPress={this.setNamesOnEnterButton}
-          />
-          {minusBtn}
-        </div>
-      );
+      return (<div key={index} style={{ marginTop: '8px' }}>
+        <TextField type="text"
+          autoFocus={index === 0}
+          label="Name"
+          value={value}
+          onChange={this.changeName(index)}
+          onKeyPress={this.setNamesOnEnterButton}
+        />
+        {minusBtn}
+      </div>);
     });
 
     return (

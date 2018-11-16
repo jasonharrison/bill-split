@@ -88,6 +88,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
           <CardContent>
             <div>
               <TextField type="text"
+                autoFocus={itemIndex === 0}
                 label="Product Name"
                 value={item.name}
                 onChange={this.changeItemName(itemIndex)}
