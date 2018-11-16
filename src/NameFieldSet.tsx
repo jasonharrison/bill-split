@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import * as React from 'react';
@@ -29,34 +30,51 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
           <RemoveCircleIcon style={{ height: '24px', width: '24px' }} />
         </IconButton>
       }
-      return (<div key={index}>
-        <TextField type="text"
-          label="Name"
-          value={value}
-          onChange={this.changeName(index)}
-          onKeyPress={this.setNamesOnEnterButton}
-        />
-        {minusBtn}
-      </div>);
+      return (
+        <div key={index} style={{ marginTop: '8px' }}>
+          <TextField type="text"
+            label="Name"
+            value={value}
+            onChange={this.changeName(index)}
+            onKeyPress={this.setNamesOnEnterButton}
+          />
+          {minusBtn}
+        </div>
+      );
     });
 
     return (
-      <Card>
-        <CardContent>
-          <Typography component="p">
-            Who is splitting the bill?
-              <IconButton aria-label="Add person" onClick={this.add}>
-              <PersonAddIcon />
-            </IconButton>
-          </Typography>
-          <div className="inputs" style={{ marginBottom: '16px' }}>
-            {names}
-          </div>
-          <Button id="splitBtn" variant="contained" color="primary" onClick={this.setNames} disabled={!this.isValid()}>
-            Split bill
-            </Button>
-        </CardContent>
-      </Card>
+      <div>
+        <Typography variant="h5" component="h2">
+          Easily split a restaurant or bar bill.
+        </Typography>
+        <Typography component="p">
+          Bill split is free, and it works offline.
+        </Typography>
+        <Card style={{ marginBottom: '16px', marginTop: '16px' }}>
+          <CardContent>
+            <Typography component="p">
+              Who is splitting the bill?
+            </Typography>
+            <div className="inputs" style={{ marginBottom: '16px' }}>
+              {names}
+            </div>
+          </CardContent>
+        </Card>
+        <Button variant="contained" color="secondary" aria-label="Add person" onClick={this.add}>
+          <PersonAddIcon style={{ marginRight: '8px' }} />
+          Add person
+        </Button>
+        <Button id="splitBtn"
+          style={{ float: 'right' }}
+          variant="contained"
+          color="primary"
+          onClick={this.setNames}
+          disabled={!this.isValid()}>
+          Split bill
+          <NavigateNextIcon style={{ marginLeft: '8px' }} />
+        </Button>
+      </div>
     );
   }
 
