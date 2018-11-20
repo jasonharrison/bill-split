@@ -83,12 +83,17 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             Remove Item
           </Button>);
       }
+      let autoFocus = false;
+      const itemsLength = this.state.items.length;
+      if ((itemsLength === 1 && itemIndex === 0) || (itemsLength > 1 && itemIndex === itemsLength - 1)) {
+        autoFocus = true;
+      }
       return (<div key={itemIndex}>
         <Card key={itemIndex} style={{ marginTop: '16px', marginBottom: '16px' }}>
           <CardContent>
             <div>
               <TextField type="text"
-                autoFocus={itemIndex === 0}
+                autoFocus={autoFocus}
                 label="Product Name"
                 value={item.name}
                 onChange={this.changeItemName(itemIndex)}
