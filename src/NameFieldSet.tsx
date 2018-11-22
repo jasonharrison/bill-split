@@ -83,10 +83,9 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   }
 
   private setNames = () => {
-    const newNames = [...this.state.names];
-    this.removeBlankNamesFromNameArray(newNames)
+    const newNames = [...this.removeBlankNamesFromNameArray(this.state.names)];
     this.setState({ names: newNames });
-    this.props.setNames(this.state.names);
+    this.props.setNames(newNames);
   }
 
   private add = () => {
@@ -119,12 +118,8 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
     return (index !== -1 && index <= 1);
   }
 
-  private removeBlankNamesFromNameArray = (newNames: string[]) => {
-    for (let index = 0; index <= newNames.length; index++) {
-      if (this.isEmptyOrSpaces(newNames[index])) {
-        newNames.splice(index, 1);
-      }
-    }
+  private removeBlankNamesFromNameArray = (names: string[]) => {
+    return names.filter((name) => !this.isEmptyOrSpaces(name));
   }
 
   private setNamesOnEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
