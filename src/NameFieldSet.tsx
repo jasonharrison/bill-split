@@ -25,6 +25,11 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   public render() {
     const names = this.state.names.map((value: string, index: number) => {
       let minusBtn = null;
+      let autoFocus = false;
+      const namesLength = this.state.names.length;
+      if ((namesLength === 2 && index === 0) || (namesLength > 2 && index === namesLength - 1)) {
+        autoFocus = true;
+      }
       if (index > 1) {
         minusBtn = <IconButton aria-label="Remove person" onClick={this.remove(index)}>
           <RemoveCircleIcon style={{ height: '24px', width: '24px' }} />
@@ -32,7 +37,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
       }
       return (<div key={index} style={{ marginTop: '8px' }}>
         <TextField type="text"
-          autoFocus={index === 0}
+          autoFocus={autoFocus}
           label="Name"
           value={value}
           onChange={this.changeName(index)}
