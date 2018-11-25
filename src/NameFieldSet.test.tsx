@@ -26,3 +26,12 @@ it('should ignore blank names', () => {
   splitBtn.simulate('click');
   expect((nameFieldSetWrapper.state() as INameFieldSetState).names).toEqual(["Jason", "Vinny", "Vitor"]);
 });
+
+it('should add a name', () => {
+  const mockFunction = jest.fn();
+  const nameFieldSetWrapper = shallow(<NameFieldSet setNames={mockFunction} />);
+  nameFieldSetWrapper.setState({ names: ["Jason", "Vinny", "Vitor"] });
+  const addBtn = nameFieldSetWrapper.find('#addBtn');
+  addBtn.simulate('click');
+  expect((nameFieldSetWrapper.state() as INameFieldSetState).names).toEqual(["Jason", "Vinny", "Vitor", ""]);
+});
