@@ -65,7 +65,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
             </div>
           </CardContent>
         </Card>
-        <Button variant="contained" color="secondary" aria-label="Add person" onClick={this.add}>
+        <Button id="addBtn" variant="contained" color="secondary" aria-label="Add person" onClick={this.add}>
           <PersonAddIcon style={{ marginRight: '8px' }} />
           Add person
         </Button>
