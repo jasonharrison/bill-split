@@ -12,17 +12,17 @@ jobs:
             - attach_workspace:
                 at: ~/tmp/circlci-now
             - restore_cache:
+                name: Restore Yarn Package Cache
                 keys:
-                    - npm-cache-{{ .Branch }}-{{ checksum "package.json" }}
-                    - npm-cache-{{ .Branch }}
-                    - npm-cache-
+                  - yarn-packages-{{ checksum "yarn.lock" }}
             - run:
-                name: NPM Install
-                command: npm install
+                name: Install Dependencies
+                command: yarn install --frozen-lockfile
             - save_cache:
-                key: npm-cache-{{ .Branch }}-{{ checksum "package.json" }}
+                name: Save Yarn Package Cache
+                key: yarn-packages-{{ checksum "yarn.lock" }}
                 paths:
-                    - node_modules
+                  - ~/.cache/yarn
             - persist_to_workspace:
                 root: .
                 paths: .
@@ -32,14 +32,14 @@ jobs:
             - attach_workspace:
                 at: ~/tmp/circlci-now
             - run:
-                name: NPM Install
-                command: npm install
+                name: yarn Install
+                command: yarn install
             - run:
                 name: Unit Test
-                command: npm run test
+                command: yarn run test
             - run:
                 name: tsformat
-                command: npm run verify-tsfmt
+                command: yarn run verify-tsfmt
     deploy:
         <<: *defaults
         steps:
@@ -47,7 +47,7 @@ jobs:
                 at: ~/tmp/circlci-now
             - run:
                 name: Install Now CLI
-                command: sudo npm install --global --unsafe-perm now now-serve
+                command: sudo yarn global add now now-serve
             - deploy:
                 name: Deploy & Alias
                 command: |
