@@ -98,8 +98,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             </div>
             <br />
             <div>
-              <FormLabel component="legend">Quantity</FormLabel>
               <TextField type="number"
+                label="Quantity"
                 value={this.getItemQuantityString(itemIndex)}
                 onChange={this.changeItemQuantity(itemIndex)}
                 onFocus={this.itemQuantityToggleFocus(itemIndex, true)}
@@ -108,8 +108,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             </div>
             <br />
             <div>
-              <FormLabel component="legend">Price</FormLabel>
               <TextField type="text"
+                label="Price"
                 value={moneyDecimalToString(item.price, item.isFocused)}
                 onChange={this.changeItemPrice(itemIndex)}
                 onFocus={this.itemPriceToggleFocus(itemIndex, true)}
@@ -118,7 +118,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             </div>
             <br />
             <div>
-              <FormLabel component="legend">Who consumed</FormLabel>
+              <FormLabel component="label">Who consumed</FormLabel>
               <FormGroup>
                 {names(itemIndex)}
               </FormGroup>
