@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IItem, ItemFieldSet } from './ItemFieldSet';
 import { NameFieldSet } from './NameFieldSet';
 import { Result } from './Result';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 interface IBillSplitState {
   names: string[],
@@ -15,26 +16,14 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
     names: []
   }
 
-  public render() {
-    if (this.state.names.length === 0) {
-      // Insert names page
-      return (<NameFieldSet
-        setNames={this.setNames}
-      />);
-    } else if (this.state.items.length === 0) {
-      // Items page
-      return (<ItemFieldSet
-        names={this.state.names}
-        setItems={this.setItems}
-      />);
-    } else {
-      // Result page
-      return (<Result
-        names={this.state.names}
-        items={this.state.items}
-        reset={this.reset}
-      />);
-    }
+  public render = () => {
+    return (<Router>
+      <div>
+      <Route path="/" exact render={() => <NameFieldSet setNames={this.setNames} /> } />
+      <Route path="/Items" render={() => <ItemFieldSet names={this.state.names} setItems={this.setItems} /> } />
+      <Route path="/Result" render={() => <Result names={this.state.names} items={this.state.items} reset={this.reset} /> } />
+    </div>
+    </Router>)
   }
 
   private setNames = (names: string[]) => {
@@ -42,6 +31,7 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
       ...this.state,
       names
     });
+    return <Redirect push to="/Items" />
   }
 
   private setItems = (items: IItem[]) => {
