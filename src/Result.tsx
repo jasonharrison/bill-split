@@ -15,7 +15,7 @@ interface IResultSetProps {
 
 export class Result extends React.Component<IResultSetProps> {
   public render() {
-    const namesPaying = {};
+    const namesPaying: any = {};
     this.props.items.map((item: IItem, itemIndex: number) => {
       item.payingIndexes.map((payingIndex: number) => {
         const name = this.getNameByIndex(payingIndex);
