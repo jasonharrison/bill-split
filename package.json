@@ -16,6 +16,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
+    "serve": "^11.0.0",
     "ts-money": "^0.4.6",
     "typescript": "3.4.4"
   },
