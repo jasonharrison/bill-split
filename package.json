@@ -18,13 +18,15 @@
     "react-scripts": "2.1.8",
     "serve": "^11.0.0",
     "ts-money": "^0.4.6",
+    "tslint-react": "^4.0.0",
     "typescript": "3.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "fix": "yarn run lint && yarn run tsfmt",
-    "lint": "tslint --fix -c tslint.json 'src/*.ts*'",
+    "fix": "yarn run tsfmt && yarn run lint:fix",
+    "lint": "tslint -c ./tslint.json --project ./tsconfig.json",
+    "lint:fix": "tslint --fix -c ./tslint.json --project ./tsconfig.json",
     "precommit": "yarn run verify-lint && yarn run verify-tsfmt && yarn run test",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
@@ -48,7 +50,6 @@
   "devDependencies": {
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
     "typescript-formatter": "^7.2.2"
   }
 }
