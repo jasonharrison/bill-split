@@ -16,7 +16,9 @@ interface IResultSetProps {
 export class Result extends React.Component<IResultSetProps> {
   public render() {
     const namesPaying: any = {};
+    // eslint-disable-next-line
     this.props.items.map((item: IItem, itemIndex: number) => {
+      // eslint-disable-next-line
       item.payingIndexes.map((payingIndex: number) => {
         const name = this.getNameByIndex(payingIndex);
         const perPersonCost = (item.price * item.quantity) / item.payingIndexes.length;
