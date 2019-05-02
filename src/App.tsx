@@ -29,7 +29,14 @@ class App extends React.Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          <div style={{ maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto', marginBottom: '16px', paddingTop: '32px' }}>
+          <div style={{
+            maxWidth: '500px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginBottom: '16px',
+            paddingTop: '32px',
+          }}
+          >
             <BillSplit />
           </div>
         </div>

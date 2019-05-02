@@ -56,14 +56,25 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       return (<FormControlLabel
         key={(itemIndex + '-' + nameIndex)}
         control={
-          <Checkbox checked={this.isPayingForItem(itemIndex, nameIndex)} onChange={this.isPayingForItemNameToggle(itemIndex, nameIndex)} value={name} />
+          <Checkbox
+            checked={this.isPayingForItem(itemIndex, nameIndex)}
+            onChange={this.payingForItemToggle(itemIndex, nameIndex)}
+            value={name}
+          />
         }
         label={name}
       />
       );
     });
     const splitBillButton = (
-      <Button id='splitBtn' variant='contained' style={{ float: 'right' }} color='primary' onClick={this.setItems} disabled={!this.isValid()}>
+      <Button
+        id='splitBtn'
+        variant='contained'
+        style={{ float: 'right' }}
+        color='primary'
+        onClick={this.setItems}
+        disabled={!this.isValid()}
+      >
         Split bill
         <NavigateNextIcon style={{ marginLeft: '8px' }} />
       </Button>);
@@ -102,8 +113,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
                 label='Quantity'
                 value={this.getItemQuantityString(itemIndex)}
                 onChange={this.changeItemQuantity(itemIndex)}
-                onFocus={this.itemQuantityToggleFocus(itemIndex, true)}
-                onBlur={this.itemQuantityToggleFocus(itemIndex, false)}
+                onFocus={this.itemQtyToggleFocus(itemIndex, true)}
+                onBlur={this.itemQtyToggleFocus(itemIndex, false)}
               />
             </div>
             <br />
@@ -205,12 +216,13 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     if (focused) {
       items[index].price = event.target.value.replace(/[^0-9]/, '');
     } else {
-      items[index].price = '$' + Money.fromDecimal(items[index].price, Currencies.USD, Math.round).toString();
+      const moneyStr = Money.fromDecimal(items[index].price, Currencies.USD, Math.round).toString();
+      items[index].price = '$' + moneyStr;
     }
     this.setState({ items });
   }
 
-  private itemQuantityToggleFocus = (index: number, focused: boolean) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  private itemQtyToggleFocus = (index: number, focused: boolean) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItemInternal[] = [...this.state.items];
     items[index].isFocused = focused;
     if (!focused) {
@@ -235,18 +247,18 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     return s === null || s.match(/^ *$/) !== null;
   }
 
-  private isPayingForItemNameToggle = (itemIndex: number, nameIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  private payingForItemToggle = (itemIdx: number, nameIdx: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItemInternal[] = [...this.state.items];
-    if (items[itemIndex].payingIndexes.indexOf(nameIndex) !== -1) {
-      items[itemIndex] = {
-        ...items[itemIndex],
-        payingIndexes: items[itemIndex].payingIndexes
-          .filter((index) => index !== nameIndex),
+    if (items[itemIdx].payingIndexes.indexOf(nameIdx) !== -1) {
+      items[itemIdx] = {
+        ...items[itemIdx],
+        payingIndexes: items[itemIdx].payingIndexes
+          .filter((index) => index !== nameIdx),
       };
     } else {
-      items[itemIndex] = {
-        ...items[itemIndex],
-        payingIndexes: [...items[itemIndex].payingIndexes, nameIndex],
+      items[itemIdx] = {
+        ...items[itemIdx],
+        payingIndexes: [...items[itemIdx].payingIndexes, nameIdx],
       };
     }
     this.setState({ items });
