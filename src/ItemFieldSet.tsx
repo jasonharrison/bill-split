@@ -16,26 +16,26 @@ import moneyDecimalToString from './Helpers';
 import * as React from 'react';
 
 export interface IItem {
-  name: string,
-  payingIndexes: number[], // Indexes of people who will pay for this item 
-  price: number,
-  quantity: number,
+  name: string;
+  payingIndexes: number[]; // Indexes of people who will pay for this item
+  price: number;
+  quantity: number;
 }
 
 export interface IItemInternal {
-  isFocused: boolean,
-  name: string,
-  payingIndexes: number[], // Indexes of people who will pay for this item 
-  price: string,
-  quantity: number,
+  isFocused: boolean;
+  name: string;
+  payingIndexes: number[]; // Indexes of people who will pay for this item
+  price: string;
+  quantity: number;
 }
 
 interface IItemFieldSetProps {
-  names: string[],
-  setItems: (items: IItem[]) => void,
+  names: string[];
+  setItems: (items: IItem[]) => void;
 }
 interface IItemFieldSetState {
-  items: IItemInternal[],
+  items: IItemInternal[];
 }
 
 export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemFieldSetState> {
@@ -43,33 +43,33 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     items: [
       {
         isFocused: false,
-        name: "",
+        name: '',
         payingIndexes: [],
-        price: "",
+        price: '',
         quantity: 1,
-      }
-    ]
-  }
+      },
+    ],
+  };
 
   public render() {
     const names = (itemIndex: number) => this.props.names.map((name: string, nameIndex: number) => {
       return (<FormControlLabel
-        key={(itemIndex + "-" + nameIndex)}
+        key={(itemIndex + '-' + nameIndex)}
         control={
           <Checkbox checked={this.isPayingForItem(itemIndex, nameIndex)} onChange={this.isPayingForItemNameToggle(itemIndex, nameIndex)} value={name} />
         }
         label={name}
       />
-      )
+      );
     });
     const splitBillButton = (
-      <Button id="splitBtn" variant="contained" style={{ float: 'right' }} color="primary" onClick={this.setItems} disabled={!this.isValid()}>
+      <Button id='splitBtn' variant='contained' style={{ float: 'right' }} color='primary' onClick={this.setItems} disabled={!this.isValid()}>
         Split bill
         <NavigateNextIcon style={{ marginLeft: '8px' }} />
       </Button>);
     const addButton = (
-      <Button variant="contained" color="secondary"
-        aria-label="Add Item" onClick={this.add}>
+      <Button variant='contained' color='secondary'
+        aria-label='Add Item' onClick={this.add}>
         <AddCircleIcon style={{ marginRight: '8px' }} />
         Add Item
       </Button>);
@@ -77,8 +77,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       let minusBtn = null;
       if (itemIndex > 0) {
         minusBtn = (
-          <Button variant="contained" color="secondary" style={{ float: 'right', marginBottom: '16px' }}
-            aria-label="Remove Item" onClick={this.remove(itemIndex)}>
+          <Button variant='contained' color='secondary' style={{ float: 'right', marginBottom: '16px' }}
+            aria-label='Remove Item' onClick={this.remove(itemIndex)}>
             <RemoveCircleIcon style={{ marginRight: '8px' }} />
             Remove Item
           </Button>);
@@ -89,17 +89,17 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
         <Card key={itemIndex} style={{ marginTop: '16px', marginBottom: '16px' }}>
           <CardContent>
             <div>
-              <TextField type="text"
+              <TextField type='text'
                 autoFocus={autoFocus}
-                label="Product Name"
+                label='Product Name'
                 value={item.name}
                 onChange={this.changeItemName(itemIndex)}
               />
             </div>
             <br />
             <div>
-              <TextField type="number"
-                label="Quantity"
+              <TextField type='number'
+                label='Quantity'
                 value={this.getItemQuantityString(itemIndex)}
                 onChange={this.changeItemQuantity(itemIndex)}
                 onFocus={this.itemQuantityToggleFocus(itemIndex, true)}
@@ -108,8 +108,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             </div>
             <br />
             <div>
-              <TextField type="text"
-                label="Price"
+              <TextField type='text'
+                label='Price'
                 value={moneyDecimalToString(item.price, item.isFocused)}
                 onChange={this.changeItemPrice(itemIndex)}
                 onFocus={this.itemPriceToggleFocus(itemIndex, true)}
@@ -118,7 +118,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             </div>
             <br />
             <div>
-              <FormLabel component="label">Who consumed</FormLabel>
+              <FormLabel component='label'>Who consumed</FormLabel>
               <FormGroup>
                 {names(itemIndex)}
               </FormGroup>
@@ -131,7 +131,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     });
     return (
       <div>
-        <Typography variant="h5" component="h2">
+        <Typography variant='h5' component='h2'>
           Describe Items
         </Typography>
         {itemsArray}
@@ -142,7 +142,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   }
 
   private add = () => {
-    const newItem: IItemInternal = { isFocused: false, name: "", payingIndexes: [], quantity: 1, price: "" }
+    const newItem: IItemInternal = { isFocused: false, name: '', payingIndexes: [], quantity: 1, price: '' };
     const items: IItemInternal[] = [...this.state.items, newItem];
     this.setState({ items });
   }
@@ -150,18 +150,18 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   private remove = (itemIndex: number) => (event: React.MouseEvent<HTMLElement>) => {
     const items: IItemInternal[] = [...this.state.items];
     items.splice(itemIndex, 1);
-    this.setState({ items })
+    this.setState({ items });
   }
 
   private getItemQuantityString = (index: number) => {
     const quantity = this.state.items[index].quantity;
     if (this.state.items[index].isFocused && isNaN(quantity)) {
-      return "";
+      return '';
     }
     if (isNaN(quantity)) {
-      return "1";
+      return '1';
     }
-    return quantity.toString()
+    return quantity.toString();
   }
 
   private moneyStringToDecimal = (money: string | null) => {
@@ -198,14 +198,14 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
 
   private itemPriceToggleFocus = (index: number, focused: boolean) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const items: IItemInternal[] = [...this.state.items];
-    items[index] = { ...items[index], isFocused: focused }
-    if (items[index].price === "") {
+    items[index] = { ...items[index], isFocused: focused };
+    if (items[index].price === '') {
       return;
     }
     if (focused) {
       items[index].price = event.target.value.replace(/[^0-9]/, '');
     } else {
-      items[index].price = "$" + Money.fromDecimal(items[index].price, Currencies.USD, Math.round).toString();
+      items[index].price = '$' + Money.fromDecimal(items[index].price, Currencies.USD, Math.round).toString();
     }
     this.setState({ items });
   }
@@ -215,16 +215,16 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     items[index].isFocused = focused;
     if (!focused) {
       if (isNaN(items[index].quantity) || items[index].quantity === 0) {
-        items[index] = { ...items[index], quantity: 1 }
+        items[index] = { ...items[index], quantity: 1 };
       }
     }
     this.setState({ items });
   }
 
   private itemsArrayContainsAtLeastOneItem = () => {
-    return this.state.items[0].name !== "" &&
+    return this.state.items[0].name !== '' &&
       this.state.items[0].quantity !== 0 &&
-      this.state.items[0].price !== "" &&
+      this.state.items[0].price !== '' &&
       this.state.items[0].payingIndexes.length > 0;
   }
 
@@ -241,13 +241,12 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       items[itemIndex] = {
         ...items[itemIndex],
         payingIndexes: items[itemIndex].payingIndexes
-          .filter(index => index !== nameIndex)
+          .filter((index) => index !== nameIndex),
       };
-    }
-    else {
+    } else {
       items[itemIndex] = {
         ...items[itemIndex],
-        payingIndexes: [...items[itemIndex].payingIndexes, nameIndex]
+        payingIndexes: [...items[itemIndex].payingIndexes, nameIndex],
       };
     }
     this.setState({ items });
@@ -255,7 +254,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
 
   private isPayingForItem = (itemIndex: number, nameIndex: number) => {
     const item: IItemInternal = this.state.items[itemIndex];
-    return item.payingIndexes.indexOf(nameIndex) !== -1
+    return item.payingIndexes.indexOf(nameIndex) !== -1;
   }
 
   private isNumber = (value: string | number) => {
@@ -267,7 +266,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   }
 
   private setItems = () => {
-    const newItems: IItem[] = this.state.items.filter(item =>
+    const newItems: IItem[] = this.state.items.filter((item) =>
       !this.isEmptyOrSpaces(item.name) &&
       !this.isEmptyOrSpaces(item.price) &&
       item.quantity > 0 &&
@@ -278,7 +277,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
           payingIndexes: item.payingIndexes,
           price: this.moneyStringToDecimal(item.price),
           quantity: item.quantity,
-        }
+        };
       });
     this.props.setItems(newItems);
   }

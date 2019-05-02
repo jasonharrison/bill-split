@@ -8,9 +8,9 @@ import moneyDecimalToString from './Helpers';
 import { IItem } from './ItemFieldSet';
 
 interface IResultSetProps {
-  items: IItem[],
-  names: string[],
-  reset: () => void,
+  items: IItem[];
+  names: string[];
+  reset: () => void;
 }
 
 export class Result extends React.Component<IResultSetProps> {
@@ -24,24 +24,24 @@ export class Result extends React.Component<IResultSetProps> {
         const perPersonCost = (item.price * item.quantity) / item.payingIndexes.length;
         if (name in namesPaying) {
           namesPaying[name].items.push(
-            <p key={(itemIndex + "-" + payingIndex)}>
+            <p key={(itemIndex + '-' + payingIndex)}>
               <i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b>
             </p>);
-          namesPaying[name].personTotal += perPersonCost
+          namesPaying[name].personTotal += perPersonCost;
         } else {
           namesPaying[name] = {
             items: [
-              <p key={(itemIndex + "-" + payingIndex)}>
+              <p key={(itemIndex + '-' + payingIndex)}>
                 <i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b>
-              </p>
+              </p>,
             ],
-            personTotal: perPersonCost
+            personTotal: perPersonCost,
           };
         }
       });
     });
     const resetButton = (
-      <Button variant="contained" color="primary" onClick={this.reset}>
+      <Button variant='contained' color='primary' onClick={this.reset}>
         <NavigateBeforeIcon style={{ marginRight: '8px' }} />
         Start again
       </Button>
@@ -50,9 +50,9 @@ export class Result extends React.Component<IResultSetProps> {
       <div>
         {
           Object.keys(namesPaying).map((key, index) => (
-            <Card key={key + " " + index} style={{ marginBottom: '16px' }}>
+            <Card key={key + ' ' + index} style={{ marginBottom: '16px' }}>
               <CardContent>
-                <Typography variant="h5" component="h2">
+                <Typography variant='h5' component='h2'>
                   {key}
                 </Typography>
                 {namesPaying[key].items}
@@ -63,7 +63,7 @@ export class Result extends React.Component<IResultSetProps> {
         }
         {resetButton}
       </div>
-    )
+    );
   }
 
   private reset = () => {

@@ -4,16 +4,16 @@ import { NameFieldSet } from './NameFieldSet';
 import { Result } from './Result';
 
 interface IBillSplitState {
-  names: string[],
-  items: IItem[],
+  names: string[];
+  items: IItem[];
 }
 
 /** This component should hold the overall application state and manage which page to show. */
 export class BillSplit extends React.Component<{}, IBillSplitState>  {
   public state = {
     items: [],
-    names: []
-  }
+    names: [],
+  };
 
   public render() {
     if (this.state.names.length === 0) {
@@ -40,22 +40,22 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
   private setNames = (names: string[]) => {
     this.setState({
       ...this.state,
-      names
+      names,
     });
   }
 
   private setItems = (items: IItem[]) => {
     this.setState({
       ...this.state,
-      items
+      items,
     });
   }
   private reset = () => {
     this.setState({
       items: [],
-      names: []
+      names: [],
     });
-  };
+  }
 }
 
 export default BillSplit;

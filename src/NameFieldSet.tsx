@@ -19,8 +19,8 @@ export interface INameFieldSetState {
 
 export class NameFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
   public state = {
-    names: ["", ""]
-  }
+    names: ['', ''],
+  };
 
   public render() {
     const names = this.state.names.map((value: string, index: number) => {
@@ -31,14 +31,14 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
         autoFocus = true;
       }
       if (index > 1) {
-        minusBtn = <IconButton aria-label="Remove person" onClick={this.remove(index)}>
+        minusBtn = <IconButton aria-label='Remove person' onClick={this.remove(index)}>
           <RemoveCircleIcon style={{ height: '24px', width: '24px' }} />
-        </IconButton>
+        </IconButton>;
       }
       return (<div key={index} style={{ marginTop: '8px' }}>
-        <TextField type="text"
+        <TextField type='text'
           autoFocus={autoFocus}
-          label="Name"
+          label='Name'
           value={value}
           onChange={this.changeName(index)}
           onKeyPress={this.setNamesOnEnterButton}
@@ -49,30 +49,30 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
 
     return (
       <div>
-        <Typography variant="h5" component="h2">
+        <Typography variant='h5' component='h2'>
           Easily split a restaurant or bar bill.
         </Typography>
-        <Typography component="p">
+        <Typography component='p'>
           Bill split is free, and it works offline.
         </Typography>
         <Card style={{ marginBottom: '16px', marginTop: '16px' }}>
           <CardContent>
-            <Typography component="p">
+            <Typography component='p'>
               Who is splitting the bill?
             </Typography>
-            <div className="inputs" style={{ marginBottom: '16px' }}>
+            <div className='inputs' style={{ marginBottom: '16px' }}>
               {names}
             </div>
           </CardContent>
         </Card>
-        <Button id="addBtn" variant="contained" color="secondary" aria-label="Add person" onClick={this.add}>
+        <Button id='addBtn' variant='contained' color='secondary' aria-label='Add person' onClick={this.add}>
           <PersonAddIcon style={{ marginRight: '8px' }} />
           Add person
         </Button>
-        <Button id="splitBtn"
+        <Button id='splitBtn'
           style={{ float: 'right' }}
-          variant="contained"
-          color="primary"
+          variant='contained'
+          color='primary'
           onClick={this.setNames}
           disabled={!this.isValid()}>
           Split bill
@@ -89,7 +89,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   }
 
   private add = () => {
-    this.setState({ names: [...this.state.names, ""] });
+    this.setState({ names: [...this.state.names, ''] });
   }
 
   private remove = (index: number) => (event: React.MouseEvent<HTMLElement>) => {
@@ -102,13 +102,13 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
     const uniqueNameSet: Set<string> = new Set();
     for (let i = 0; i <= this.state.names.length; i++) {
       if (this.state.names[i] == null) {
-        continue
+        continue;
       }
       const lowerCaseName = this.state.names[i].toLowerCase();
       if (uniqueNameSet.has(lowerCaseName)) {
         return true;
       }
-      uniqueNameSet.add(lowerCaseName)
+      uniqueNameSet.add(lowerCaseName);
     }
     return false;
   }
@@ -123,7 +123,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   }
 
   private setNamesOnEnterButton = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter" && this.isValid()) {
+    if (event.key === 'Enter' && this.isValid()) {
       this.setNames();
     }
   }

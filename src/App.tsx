@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 
 import * as React from 'react';
 import './App.css';
-import { BillSplit } from './BillSplit'
+import { BillSplit } from './BillSplit';
 
 class App extends React.Component {
   public theme = createMuiTheme({
@@ -19,12 +19,12 @@ class App extends React.Component {
     return (
       <MuiThemeProvider theme={this.theme}>
         <div>
-          <AppBar position="static">
+          <AppBar position='static'>
             <Toolbar>
-              <Typography variant="h6" color="inherit">
+              <Typography variant='h6' color='inherit'>
                 Bill Split
               </Typography>
-              <Typography variant="body2" color="inherit" style={{ marginLeft: 'auto' }}>
+              <Typography variant='body2' color='inherit' style={{ marginLeft: 'auto' }}>
                 {circleVersionInfo}
               </Typography>
             </Toolbar>

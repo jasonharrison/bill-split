@@ -13,7 +13,7 @@ it('should have a disabled Split Bill button', () => {
 it('should not have a disabled Split Bill button', () => {
   const mockFunction = jest.fn();
   const nameFieldSetWrapper = shallow(<NameFieldSet setNames={mockFunction} />);
-  nameFieldSetWrapper.setState({ names: ["Jason", "Vinny"] });
+  nameFieldSetWrapper.setState({ names: ['Jason', 'Vinny'] });
   const splitBtn = nameFieldSetWrapper.find('#splitBtn');
   expect(splitBtn.props().disabled).toEqual(false);
 });
@@ -21,17 +21,17 @@ it('should not have a disabled Split Bill button', () => {
 it('should ignore blank names', () => {
   const mockFunction = jest.fn();
   const nameFieldSetWrapper = shallow(<NameFieldSet setNames={mockFunction} />);
-  nameFieldSetWrapper.setState({ names: ["Jason", "Vinny", "", "Vitor", " "] });
+  nameFieldSetWrapper.setState({ names: ['Jason', 'Vinny', '', 'Vitor', ' '] });
   const splitBtn = nameFieldSetWrapper.find('#splitBtn');
   splitBtn.simulate('click');
-  expect((nameFieldSetWrapper.state() as INameFieldSetState).names).toEqual(["Jason", "Vinny", "Vitor"]);
+  expect((nameFieldSetWrapper.state() as INameFieldSetState).names).toEqual(['Jason', 'Vinny', 'Vitor']);
 });
 
 it('should add a name', () => {
   const mockFunction = jest.fn();
   const nameFieldSetWrapper = shallow(<NameFieldSet setNames={mockFunction} />);
-  nameFieldSetWrapper.setState({ names: ["Jason", "Vinny", "Vitor"] });
+  nameFieldSetWrapper.setState({ names: ['Jason', 'Vinny', 'Vitor'] });
   const addBtn = nameFieldSetWrapper.find('#addBtn');
   addBtn.simulate('click');
-  expect((nameFieldSetWrapper.state() as INameFieldSetState).names).toEqual(["Jason", "Vinny", "Vitor", ""]);
+  expect((nameFieldSetWrapper.state() as INameFieldSetState).names).toEqual(['Jason', 'Vinny', 'Vitor', '']);
 });
