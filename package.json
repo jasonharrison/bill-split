@@ -14,6 +14,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.0",
+    "serve": "^11.0.0",
     "ts-money": "^0.4.6",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
@@ -32,7 +33,6 @@
     "test:watch": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --forceExit --detectOpenHandles",
     "test:coveralls": "cat coverage/lcov.info | node node_modules/.bin/coveralls",
-    "pre": "yarn run precommit",
     "eject": "react-scripts eject",
     "verify-lint": "tslint -c tslint.json 'src/*.ts*'"
   },
@@ -52,7 +52,6 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^1.17.0",
-    "typescript-formatter": "^7.2.2"
+    "prettier": "^1.17.0"
   }
 }
