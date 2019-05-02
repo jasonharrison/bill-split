@@ -23,19 +23,18 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "fix": "yarn run tsfmt && yarn run lint:fix",
+    "fix": "yarn run lint:fix",
     "lint": "tslint -c ./tslint.json --project ./tsconfig.json",
     "lint:fix": "tslint --fix -c ./tslint.json --project ./tsconfig.json",
-    "precommit": "yarn run verify-lint && yarn run verify-tsfmt && yarn run test",
+    "precommit": "yarn run verify-lint && yarn run test",
+    "pre": "yarn run precommit",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --forceExit --detectOpenHandles",
     "test:coveralls": "cat coverage/lcov.info | node node_modules/.bin/coveralls",
     "pre": "yarn run precommit",
     "eject": "react-scripts eject",
-    "tsfmt": "tsfmt -r",
-    "verify-lint": "tslint -c tslint.json 'src/*.ts*'",
-    "verify-tsfmt": "tsfmt --verify"
+    "verify-lint": "tslint -c tslint.json 'src/*.ts*'"
   },
   "eslintConfig": {
     "extends": "react-app"
