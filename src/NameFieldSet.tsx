@@ -162,7 +162,6 @@ const mapDispatchToProps = {
   reduxSetNames,
   reduxGetNames,
 };
-
 const AppContainer = connect(
   mapStateToProps,
   mapDispatchToProps,

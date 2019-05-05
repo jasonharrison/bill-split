@@ -34,7 +34,7 @@ export interface IItemInternal {
 }
 
 interface IItemFieldSetProps {
-  names: any;
+  nameSetPage: any;
 }
 interface IItemFieldSetState {
   items: IItemInternal[];
@@ -54,8 +54,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   };
 
   public render() {
-    const names = (itemIndex: number) => this.props.names.names.map((name: string, nameIndex: number) => {
-      console.log(name);
+    const names = (itemIndex: number) => this.props.nameSetPage.names.map((name: string, nameIndex: number) => {
       return (<FormControlLabel
         key={(itemIndex + '-' + nameIndex)}
         control={
@@ -299,8 +298,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
 }
 
 // AppContainer.js
-const mapStateToProps = (state: { names: any; }) => ({
-  names: state.names,
+const mapStateToProps = (state: any) => ({
+  nameSetPage: state.nameSetPage,
 });
 
 const mapDispatchToProps = {
