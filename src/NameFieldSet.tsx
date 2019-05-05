@@ -47,6 +47,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
       </div>);
     });
 
+    console.log(this.props.activateGeod);
     return (
       <div>
         <Typography variant='h5' component='h2'>

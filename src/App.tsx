@@ -7,6 +7,9 @@ import * as React from 'react';
 import './App.css';
 import { BillSplit } from './BillSplit';
 
+import { connect } from 'react-redux';
+import { activateGeod, closeGeod } from './redux';
+
 class App extends React.Component {
   public theme = createMuiTheme({
     typography: {
@@ -45,4 +48,19 @@ class App extends React.Component {
   }
 }
 
-export default App;
+// AppContainer.js
+const mapStateToProps = (state: { geod: any; }) => ({
+  geod: state.geod,
+});
+
+const mapDispatchToProps = {
+  activateGeod,
+  closeGeod,
+};
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);
+
+export default AppContainer;
