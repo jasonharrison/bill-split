@@ -12,6 +12,9 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { Currencies, Money } from 'ts-money';
 import moneyDecimalToString from './Helpers';
+import { connect } from 'react-redux';
+import { reduxSetNames, reduxGetNames } from './redux';
+import { Link } from 'react-router-dom';
 
 import * as React from 'react';
 
@@ -31,8 +34,7 @@ export interface IItemInternal {
 }
 
 interface IItemFieldSetProps {
-  names: string[];
-  setItems: (items: IItem[]) => void;
+  names: any;
 }
 interface IItemFieldSetState {
   items: IItemInternal[];
@@ -52,7 +54,8 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   };
 
   public render() {
-    const names = (itemIndex: number) => this.props.names.map((name: string, nameIndex: number) => {
+    const names = (itemIndex: number) => this.props.names.names.map((name: string, nameIndex: number) => {
+      console.log(name);
       return (<FormControlLabel
         key={(itemIndex + '-' + nameIndex)}
         control={
@@ -72,7 +75,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
         variant='contained'
         style={{ float: 'right' }}
         color='primary'
-        onClick={this.setItems}
+        // onClick={this.setItems}
         disabled={!this.isValid()}
       >
         Split bill
@@ -291,6 +294,21 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
           quantity: item.quantity,
         };
       });
-    this.props.setItems(newItems);
+    // this.props.setItems(newItems);
   }
 }
+
+// AppContainer.js
+const mapStateToProps = (state: { names: any; }) => ({
+  names: state.names,
+});
+
+const mapDispatchToProps = {
+};
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ItemFieldSet);
+
+export default AppContainer;

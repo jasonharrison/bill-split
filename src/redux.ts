@@ -1,38 +1,36 @@
-import {
-  combineReducers,
-  createStore,
-} from 'redux';
+import { combineReducers, createStore } from 'redux';
 
 // actions.js
-export const activateGeod = (geod: any) => ({
-  type: 'ACTIVATE_GEOD',
-  geod,
+export const reduxSetNames = (names: any) => ({
+  type: 'REDUX_SET_NAMES',
+  names,
 });
 
-export const closeGeod = () => ({
-  type: 'CLOSE_GEOD',
+export const reduxGetNames = () => ({
+  type: 'REDUX_GET_NAMES',
 });
 
 // reducers.js
-export const geod = (state = {}, action: { type: any; geod: any; }) => {
+export const reducer = (state = {}, action: { type: any; names: any; }) => {
+  console.log('state is ');
+  console.log(state);
   switch (action.type) {
-    case 'ACTIVATE_GEOD':
-      return action.geod;
-    case 'CLOSE_GEOD':
-      return {};
+    case 'REDUX_SET_NAMES':
+      return action.names;
+      // return {...state, names: action.names };
     default:
       return state;
   }
 };
 
 export const reducers = combineReducers({
-  geod,
+  names: reducer,
 });
 
 // store.js
 export function configureStore(initialState = {}) {
   const store = createStore(reducers, initialState);
   return store;
-};
+}
 
 export const store = configureStore();

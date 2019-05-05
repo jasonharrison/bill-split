@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { IItem, ItemFieldSet } from './ItemFieldSet';
-import { NameFieldSet } from './NameFieldSet';
+import { IItem } from './ItemFieldSet';
+import ItemFieldSet from './ItemFieldSet';
+import NameFieldSet from './NameFieldSet';
 import { Result } from './Result';
 import { Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux'
-
 
 interface IBillSplitState {
   names: string[];

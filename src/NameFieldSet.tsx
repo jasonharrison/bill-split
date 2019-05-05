@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import { connect } from 'react-redux';
+import { reduxSetNames, reduxGetNames } from './redux';
+import { Link } from 'react-router-dom';
 import * as React from 'react';
 
 interface INameFieldSetProps {
@@ -17,7 +20,7 @@ export interface INameFieldSetState {
   names: string[];
 }
 
-export class NameFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
+export class NameFieldSet extends React.Component<any, any> {
   public state = {
     names: ['', ''],
   };
@@ -47,7 +50,6 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
       </div>);
     });
 
-    console.log(this.props.activateGeod);
     return (
       <div>
         <Typography variant='h5' component='h2'>
@@ -70,23 +72,24 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
           <PersonAddIcon style={{ marginRight: '8px' }} />
           Add person
         </Button>
-        <Button id='splitBtn'
-          style={{ float: 'right' }}
-          variant='contained'
-          color='primary'
-          onClick={this.setNames}
-          disabled={!this.isValid()}>
-          Split bill
-          <NavigateNextIcon style={{ marginLeft: '8px' }} />
-        </Button>
+        <Link to='/Items'>
+          <Button id='splitBtn'
+            style={{ float: 'right' }}
+            variant='contained'
+            color='primary'
+            onClick={this.setNames}
+            disabled={!this.isValid()}>
+            Split bill
+            <NavigateNextIcon style={{ marginLeft: '8px' }} />
+          </Button>
+        </Link>
       </div>
     );
   }
 
   private setNames = () => {
     const newNames = [...this.removeBlankNamesFromNameArray(this.state.names)];
-    this.setState({ names: newNames });
-    this.props.setNames(newNames);
+    this.props.reduxSetNames({names: newNames});
   }
 
   private add = () => {
@@ -150,4 +153,19 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   }
 }
 
-export default NameFieldSet;
+// AppContainer.js
+const mapStateToProps = (state: { names: any; }) => ({
+  names: state.names,
+});
+
+const mapDispatchToProps = {
+  reduxSetNames,
+  reduxGetNames,
+};
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NameFieldSet);
+
+export default AppContainer;
