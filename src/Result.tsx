@@ -6,11 +6,16 @@ import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import moneyDecimalToString from './Helpers';
 import { IItem } from './ItemFieldSet';
+import { connect } from 'react-redux';
+import { reduxReset } from './redux';
+import { Link } from 'react-router-dom';
 
 interface IResultSetProps {
-  items: IItem[];
-  names: string[];
-  reset: () => void;
+  // items: IItem[];
+  // names: string[];
+  reduxReset: () => void;
+  items: any;
+  names: any;
 }
 
 export class Result extends React.Component<IResultSetProps> {
@@ -41,10 +46,12 @@ export class Result extends React.Component<IResultSetProps> {
       });
     });
     const resetButton = (
-      <Button variant='contained' color='primary' onClick={this.reset}>
-        <NavigateBeforeIcon style={{ marginRight: '8px' }} />
-        Start again
-      </Button>
+      <Link to='/'>
+        <Button variant='contained' color='primary' onClick={this.reset}>
+          <NavigateBeforeIcon style={{ marginRight: '8px' }} />
+          Start again
+        </Button>
+      </Link>
     );
     return (
       <div>
@@ -67,7 +74,7 @@ export class Result extends React.Component<IResultSetProps> {
   }
 
   private reset = () => {
-    this.props.reset();
+    this.props.reduxReset();
   }
 
   private getNameByIndex = (index: number) => {
@@ -75,3 +82,20 @@ export class Result extends React.Component<IResultSetProps> {
   }
 
 }
+
+// AppContainer.js
+const mapStateToProps = (state: any) => ({
+  names: state.names,
+  items: state.items,
+});
+
+const mapDispatchToProps = {
+  reduxReset,
+};
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Result);
+
+export default AppContainer;

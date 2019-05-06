@@ -1,36 +1,44 @@
 import { combineReducers, createStore } from 'redux';
 
 // actions.js
-export const reduxSetNames = (nameSetPage: any) => ({
+export const reduxSetNames = (names: any) => ({
   type: 'REDUX_SET_NAMES',
-  nameSetPage,
+  payload: names,
 });
 
-export const reduxGetNames = () => ({
-  type: 'REDUX_GET_NAMES',
+export const reduxSetItems = (items: any) => ({
+  type: 'REDUX_SET_ITEMS',
+  payload: items,
+});
+
+export const reduxReset = () => ({
+  type: 'REDUX_RESET',
 });
 
 // reducers.js
-export const reducer = (state = {}, action: { type: any; nameSetPage: any; }) => {
-  console.log('state is ');
-  console.log(action);
+export const reducers = (state = {}, action: any) => {
   switch (action.type) {
     case 'REDUX_SET_NAMES':
-      return action.nameSetPage;
-      // return {...state, names: action.names };
+      return {
+        ...state,
+        names: action.payload,
+      };
+    case 'REDUX_SET_ITEMS':
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case 'REDUX_RESET':
+      return {};
     default:
       return state;
   }
 };
 
-export const reducers = combineReducers({
-  nameSetPage: reducer,
-});
-
 // store.js
 export function configureStore(initialState = {}) {
-  const store = createStore(reducers, initialState);
-  return store;
+  const newStore = createStore(reducers, initialState);
+  return newStore;
 }
 
 export const store = configureStore();

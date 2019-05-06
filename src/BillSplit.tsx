@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IItem } from './ItemFieldSet';
 import ItemFieldSet from './ItemFieldSet';
 import NameFieldSet from './NameFieldSet';
-import { Result } from './Result';
+import Result from './Result';
 import { Switch, Route } from 'react-router-dom';
 
 interface IBillSplitState {

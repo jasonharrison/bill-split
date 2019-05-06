@@ -8,7 +8,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { connect } from 'react-redux';
-import { reduxSetNames, reduxGetNames } from './redux';
+import { reduxSetNames } from './redux';
 import { Link } from 'react-router-dom';
 import * as React from 'react';
 
@@ -89,7 +89,7 @@ export class NameFieldSet extends React.Component<any, any> {
 
   private setNames = () => {
     const newNames = [...this.removeBlankNamesFromNameArray(this.state.names)];
-    this.props.reduxSetNames({names: newNames});
+    this.props.reduxSetNames(newNames);
   }
 
   private add = () => {
@@ -160,8 +160,8 @@ const mapStateToProps = (state: { names: any; }) => ({
 
 const mapDispatchToProps = {
   reduxSetNames,
-  reduxGetNames,
 };
+
 const AppContainer = connect(
   mapStateToProps,
   mapDispatchToProps,

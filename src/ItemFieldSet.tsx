@@ -13,7 +13,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { Currencies, Money } from 'ts-money';
 import moneyDecimalToString from './Helpers';
 import { connect } from 'react-redux';
-import { reduxSetNames, reduxGetNames } from './redux';
+import { reduxSetItems } from './redux';
 import { Link } from 'react-router-dom';
 
 import * as React from 'react';
@@ -34,7 +34,8 @@ export interface IItemInternal {
 }
 
 interface IItemFieldSetProps {
-  nameSetPage: any;
+  names: any;
+  reduxSetItems: any;
 }
 interface IItemFieldSetState {
   items: IItemInternal[];
@@ -54,7 +55,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   };
 
   public render() {
-    const names = (itemIndex: number) => this.props.nameSetPage.names.map((name: string, nameIndex: number) => {
+    const names = (itemIndex: number) => this.props.names.map((name: string, nameIndex: number) => {
       return (<FormControlLabel
         key={(itemIndex + '-' + nameIndex)}
         control={
@@ -69,17 +70,19 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       );
     });
     const splitBillButton = (
-      <Button
-        id='splitBtn'
-        variant='contained'
-        style={{ float: 'right' }}
-        color='primary'
-        // onClick={this.setItems}
-        disabled={!this.isValid()}
-      >
-        Split bill
-        <NavigateNextIcon style={{ marginLeft: '8px' }} />
-      </Button>);
+      <Link to='/Result'>
+        <Button
+          id='splitBtn'
+          variant='contained'
+          style={{ float: 'right' }}
+          color='primary'
+          onClick={this.setItems}
+          disabled={!this.isValid()}
+        >
+          Split bill
+          <NavigateNextIcon style={{ marginLeft: '8px' }} />
+        </Button>
+    </Link>);
     const addButton = (
       <Button variant='contained' color='secondary'
         aria-label='Add Item' onClick={this.add}>
@@ -293,16 +296,17 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
           quantity: item.quantity,
         };
       });
-    // this.props.setItems(newItems);
+    this.props.reduxSetItems(newItems);
   }
 }
 
 // AppContainer.js
 const mapStateToProps = (state: any) => ({
-  nameSetPage: state.nameSetPage,
+  names: state.names,
 });
 
 const mapDispatchToProps = {
+  reduxSetItems,
 };
 
 const AppContainer = connect(
