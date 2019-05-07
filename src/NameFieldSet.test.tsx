@@ -8,7 +8,7 @@ import * as React from 'react';
 it('should have a disabled Split Bill button', () => {
   const mockFunction = jest.fn();
   const names = INITIAL_STATE.names;
-  const nameFieldSetWrapper = shallow(<NameFieldSet 
+  const nameFieldSetWrapper = shallow(<NameFieldSet
     names={names}
     reduxSetNames={mockFunction}
     />);

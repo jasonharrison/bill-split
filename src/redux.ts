@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux';
+import { createStore } from 'redux';
+// import { combineReducers, createStore } from 'redux';
 
 export const INITIAL_STATE = {
   items: [
@@ -12,7 +13,6 @@ export const INITIAL_STATE = {
   ],
   names: ['', ''],
 };
-
 
 // actions.js
 export const reduxSetNames = (names: any) => ({

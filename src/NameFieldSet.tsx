@@ -9,7 +9,6 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { connect } from 'react-redux';
 import { reduxSetNames } from './redux';
-import { Link } from 'react-router-dom';
 import * as React from 'react';
 
 interface INameFieldSetProps {

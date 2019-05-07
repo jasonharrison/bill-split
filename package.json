@@ -28,14 +28,14 @@
     "typescript": "3.4.5"
   },
   "scripts": {
-    "autopre": "yarn run lint:fix && yarn run test",
+    "autopre": "yarn run lint:fix && yarn run precommit",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "dev": "yarn run start",
     "fix": "yarn run lint:fix",
     "lint": "tslint -c ./tslint.json --project ./tsconfig.json",
     "lint:fix": "tslint --fix -c ./tslint.json --project ./tsconfig.json",
-    "precommit": "yarn run verify-lint && yarn run test",
+    "precommit": "yarn run verify-lint && yarn run build && yarn run test",
     "pre": "yarn run precommit",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",

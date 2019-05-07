@@ -15,7 +15,6 @@ import { Currencies, Money } from 'ts-money';
 import moneyDecimalToString from './Helpers';
 import { connect } from 'react-redux';
 import { reduxSetItems } from './redux';
-import { Link } from 'react-router-dom';
 
 import * as React from 'react';
 
