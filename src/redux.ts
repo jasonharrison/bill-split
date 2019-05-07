@@ -1,6 +1,18 @@
 import { combineReducers, createStore } from 'redux';
 
-const INITIAL_STATE = {items: [], names: ['', '']};
+const INITIAL_STATE = {
+  items: [
+  {
+    isFocused: false,
+    name: '',
+    payingIndexes: [],
+    price: '',
+    quantity: 1,
+  },
+  ],
+  names: ['', ''],
+};
+
 
 // actions.js
 export const reduxSetNames = (names: any) => ({

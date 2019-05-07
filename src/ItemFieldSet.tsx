@@ -36,6 +36,7 @@ export interface IItemInternal {
 
 interface IItemFieldSetProps {
   names: any;
+  items: any;
   reduxSetItems: any;
   history: any;
 }
@@ -44,18 +45,7 @@ interface IItemFieldSetState {
 }
 
 export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemFieldSetState> {
-  public state = {
-    items: [
-      {
-        isFocused: false,
-        name: '',
-        payingIndexes: [],
-        price: '',
-        quantity: 1,
-      },
-    ],
-  };
-
+  public state = {items: this.props.items};
   public render() {
     const names = (itemIndex: number) => this.props.names.map((name: string, nameIndex: number) => {
       return (<FormControlLabel
@@ -302,7 +292,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
   }
 
   private setItems = () => {
-    const newItems: IItem[] = this.state.items.filter((item) =>
+    const newItems: IItem[] = this.state.items.filter((item: any) =>
       !this.isEmptyOrSpaces(item.name) &&
       !this.isEmptyOrSpaces(item.price) &&
       item.quantity > 0 &&
@@ -323,6 +313,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
 // AppContainer.js
 const mapStateToProps = (state: any) => ({
   names: state.names,
+  items: state.items,
 });
 
 const mapDispatchToProps = {
