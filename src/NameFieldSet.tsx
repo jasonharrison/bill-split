@@ -14,15 +14,18 @@ import * as React from 'react';
 
 interface INameFieldSetProps {
   setNames: (names: string[]) => void;
+  names: any;
+  reduxSetNames: (names: string[]) => void;
+  history: any;  // TODO fix this
 }
 
 export interface INameFieldSetState {
   names: string[];
 }
 
-export class NameFieldSet extends React.Component<any, any> {
+export class NameFieldSet extends React.Component<INameFieldSetProps, INameFieldSetState> {
   public state = {
-    names: ['', ''],
+    names: this.props.names,
   };
 
   public render() {
@@ -66,23 +69,21 @@ export class NameFieldSet extends React.Component<any, any> {
             <div className='inputs' style={{ marginBottom: '16px' }}>
               {names}
             </div>
-          </CardContent>
-        </Card>
         <Button id='addBtn' variant='contained' color='secondary' aria-label='Add person' onClick={this.add}>
           <PersonAddIcon style={{ marginRight: '8px' }} />
           Add person
         </Button>
-        <Link to='/Items'>
-          <Button id='splitBtn'
-            style={{ float: 'right' }}
-            variant='contained'
-            color='primary'
-            onClick={this.setNames}
-            disabled={!this.isValid()}>
-            Split bill
-            <NavigateNextIcon style={{ marginLeft: '8px' }} />
-          </Button>
-        </Link>
+          </CardContent>
+        </Card>
+        <Button id='splitBtn'
+          style={{ float: 'right' }}
+          variant='contained'
+          color='primary'
+          onClick={this.setNames}
+          disabled={!this.isValid()}>
+          Split bill
+          <NavigateNextIcon style={{ marginLeft: '8px' }} />
+        </Button>
       </div>
     );
   }
@@ -90,6 +91,7 @@ export class NameFieldSet extends React.Component<any, any> {
   private setNames = () => {
     const newNames = [...this.removeBlankNamesFromNameArray(this.state.names)];
     this.props.reduxSetNames(newNames);
+    this.props.history.push('/Items');
   }
 
   private add = () => {

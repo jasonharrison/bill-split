@@ -1,5 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 
+const INITIAL_STATE = {items: [], names: ['', '']};
+
 // actions.js
 export const reduxSetNames = (names: any) => ({
   type: 'REDUX_SET_NAMES',
@@ -29,7 +31,7 @@ export const reducers = (state = {}, action: any) => {
         items: action.payload,
       };
     case 'REDUX_RESET':
-      return {};
+      return INITIAL_STATE;
     default:
       return state;
   }
@@ -41,4 +43,4 @@ export function configureStore(initialState = {}) {
   return newStore;
 }
 
-export const store = configureStore();
+export const store = configureStore(INITIAL_STATE);

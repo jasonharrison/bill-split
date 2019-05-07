@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { Currencies, Money } from 'ts-money';
 import moneyDecimalToString from './Helpers';
@@ -36,6 +37,7 @@ export interface IItemInternal {
 interface IItemFieldSetProps {
   names: any;
   reduxSetItems: any;
+  history: any;
 }
 interface IItemFieldSetState {
   items: IItemInternal[];
@@ -70,25 +72,30 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
       );
     });
     const splitBillButton = (
-      <Link to='/Result'>
-        <Button
-          id='splitBtn'
-          variant='contained'
-          style={{ float: 'right' }}
-          color='primary'
-          onClick={this.setItems}
-          disabled={!this.isValid()}
-        >
-          Split bill
-          <NavigateNextIcon style={{ marginLeft: '8px' }} />
-        </Button>
-    </Link>);
-    const addButton = (
-      <Button variant='contained' color='secondary'
-        aria-label='Add Item' onClick={this.add}>
-        <AddCircleIcon style={{ marginRight: '8px' }} />
-        Add Item
+      <Button
+        id='splitBtn'
+        variant='contained'
+        style={{ float: 'right' }}
+        color='primary'
+        onClick={this.setItems}
+        disabled={!this.isValid()}
+      >
+        Split bill
+        <NavigateNextIcon style={{ marginLeft: '8px' }} />
       </Button>);
+    let addButton: JSX.Element;
+    const backButton = (
+      <Button
+        id='backBtn'
+        variant='contained'
+        style={{ float: 'left' }}
+        color='primary'
+        onClick={this.goBackToNames}
+      >
+      <NavigateBeforeIcon style={{ marginRight: '8px' }} />
+        Go Back
+      </Button>);
+    const itemsLength = this.state.items.length;
     const itemsArray = this.state.items.map((item: IItemInternal, itemIndex: number) => {
       let minusBtn = null;
       if (itemIndex > 0) {
@@ -99,7 +106,15 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
             Remove Item
           </Button>);
       }
-      const itemsLength = this.state.items.length;
+      if (itemIndex === itemsLength - 1) {
+        // last item
+        addButton = (
+          <Button variant='contained' color='secondary'
+            aria-label='Add Item' onClick={this.add}>
+            <AddCircleIcon style={{ marginRight: '8px' }} />
+            Add Item
+          </Button>);
+      }
       const autoFocus = (itemsLength === 1 && itemIndex === 0) || (itemsLength > 1 && itemIndex === itemsLength - 1);
       return (<div key={itemIndex}>
         <Card key={itemIndex} style={{ marginTop: '16px', marginBottom: '16px' }}>
@@ -140,6 +155,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
               </FormGroup>
             </div>
             {minusBtn}
+            {addButton}
           </CardContent>
         </Card>
       </div>
@@ -151,7 +167,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
           Describe Items
         </Typography>
         {itemsArray}
-        {addButton}
+        {backButton}
         {splitBillButton}
       </div>
     );
@@ -169,6 +185,9 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     this.setState({ items });
   }
 
+  private goBackToNames = () => {
+    this.props.history.push('/');
+  }
   private getItemQuantityString = (index: number) => {
     const quantity = this.state.items[index].quantity;
     if (this.state.items[index].isFocused && isNaN(quantity)) {
@@ -297,6 +316,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
         };
       });
     this.props.reduxSetItems(newItems);
+    this.props.history.push('/Result');
   }
 }
 
