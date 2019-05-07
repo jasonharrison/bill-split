@@ -25,45 +25,6 @@ export class BillSplit extends React.Component<{}, IBillSplitState>  {
         <Route path='/Result' component={Result} />
       </Switch>
     );
-    // if (this.state.names.length === 0) {
-    //   // Insert names page
-    //   return (<NameFieldSet
-    //     setNames={this.setNames}
-    //   />);
-    // } else if (this.state.items.length === 0) {
-    //   // Items page
-    //   return (<ItemFieldSet
-    //     names={this.state.names}
-    //     setItems={this.setItems}
-    //   />);
-    // } else {
-    //   // Result page
-    //   return (<Result
-    //     names={this.state.names}
-    //     items={this.state.items}
-    //     reset={this.reset}
-    //   />);
-    // }
-  }
-
-  private setNames = (names: string[]) => {
-    this.setState({
-      ...this.state,
-      names,
-    });
-  }
-
-  private setItems = (items: IItem[]) => {
-    this.setState({
-      ...this.state,
-      items,
-    });
-  }
-  private reset = () => {
-    this.setState({
-      items: [],
-      names: [],
-    });
   }
 }
 

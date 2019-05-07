@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from 'redux';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   items: [
   {
     isFocused: false,
