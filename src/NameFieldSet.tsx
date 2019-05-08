@@ -90,7 +90,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
   private setNames = () => {
     const newNames = [...this.removeBlankNamesFromNameArray(this.state.names)];
     this.props.reduxSetNames(newNames);
-    this.setState({... this.state, names: newNames });
+    this.setState({...this.state, names: newNames });
     this.props.history.push('/Items');
   }
 
