@@ -15,6 +15,8 @@ import { Currencies, Money } from 'ts-money';
 import moneyDecimalToString from './Helpers';
 import { connect } from 'react-redux';
 import { reduxSetItems } from './redux';
+import { INITIAL_STATE } from './redux';
+import { Redirect } from 'react-router';
 
 import * as React from 'react';
 
@@ -46,6 +48,10 @@ interface IItemFieldSetState {
 export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemFieldSetState> {
   public state = {items: this.props.items};
   public render() {
+    const redirectToNames = this.props.items === INITIAL_STATE.items;
+    if (redirectToNames) {
+      return (<Redirect to='/' />);
+    }
     const names = (itemIndex: number) => this.props.names.map((name: string, nameIndex: number) => {
       return (<FormControlLabel
         key={(itemIndex + '-' + nameIndex)}
