@@ -48,7 +48,7 @@ interface IItemFieldSetState {
 export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemFieldSetState> {
   public state = {items: this.props.items};
   public render() {
-    if (this.props.items === INITIAL_STATE.items) {
+    if (this.props.names === INITIAL_STATE.names) {
       return (<Redirect to='/' />);
     }
     const names = (itemIndex: number) => this.props.names.map((name: string, nameIndex: number) => {
