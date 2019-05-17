@@ -2,6 +2,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 import * as React from 'react';
 import './App.css';
@@ -15,18 +16,16 @@ class App extends React.Component<any, any> {
   });
 
   public render() {
-    const circleVersionInfo = null; // for CircleCI
     return (
       <MuiThemeProvider theme={this.theme}>
         <div>
           <AppBar position='static'>
             <Toolbar>
-              <Typography variant='h6' color='inherit'>
-                Bill Split
-              </Typography>
-              <Typography variant='body2' color='inherit' style={{ marginLeft: 'auto' }}>
-                {circleVersionInfo}
-              </Typography>
+              <Link to='/' style={{ textDecoration: 'none' }}>
+                <Typography variant='h6' style={{color: 'white'}}>
+                  Bill Split
+                </Typography>
+              </Link>
             </Toolbar>
           </AppBar>
           <div style={{

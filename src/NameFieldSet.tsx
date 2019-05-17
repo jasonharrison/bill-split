@@ -12,7 +12,6 @@ import { reduxSetNames } from './redux';
 import * as React from 'react';
 
 interface INameFieldSetProps {
-  setNames: (names: string[]) => void;
   names: any;
   reduxSetNames: (names: string[]) => void;
   history: any;  // TODO fix this
