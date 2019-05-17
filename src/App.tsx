@@ -16,6 +16,16 @@ class App extends React.Component<any, any> {
   });
 
   public render() {
+    const devMode = process.env.NODE_ENV === 'development';
+    const version = process.env.REACT_APP_VERSION;
+    let devVersionJSX;
+    if (devMode) {
+      devVersionJSX = (
+      <Typography variant='body2' color='inherit' style={{ marginLeft: 'auto' }}>
+        {version}
+      </Typography>
+      );
+    }
     return (
       <MuiThemeProvider theme={this.theme}>
         <div>
@@ -26,6 +36,7 @@ class App extends React.Component<any, any> {
                   Bill Split
                 </Typography>
               </Link>
+              {devVersionJSX}
             </Toolbar>
           </AppBar>
           <div style={{

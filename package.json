@@ -29,7 +29,7 @@
   },
   "scripts": {
     "autopre": "yarn run lint:fix && yarn run precommit",
-    "start": "react-scripts start",
+    "start": "REACT_APP_VERSION=`git rev-parse --short HEAD` react-scripts start",
     "build": "CI=false react-scripts build",
     "dev": "yarn run start",
     "fix": "yarn run lint:fix",
