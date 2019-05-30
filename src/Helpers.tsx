@@ -1,7 +1,7 @@
 import { Currencies, Money } from 'ts-money';
 
 const moneyDecimalToString = (money: number | string | undefined | null, isFocused?: boolean) => {
-  if (typeof (money) === 'string') {
+  if (typeof money === 'string') {
     return money;
   }
   if (!money) {

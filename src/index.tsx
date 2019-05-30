@@ -7,12 +7,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux';
 
-ReactDOM.render((
+ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
-), document.getElementById('root') as HTMLElement,
+  </Provider>,
+  document.getElementById('root') as HTMLElement,
 );
 registerServiceWorker();

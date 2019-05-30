@@ -21,31 +21,32 @@ class App extends React.Component<any, any> {
     let devVersionJSX;
     if (devMode) {
       devVersionJSX = (
-      <Typography variant='body2' color='inherit' style={{ marginLeft: 'auto' }}>
-        {version}
-      </Typography>
+        <Typography variant="body2" color="inherit" style={{ marginLeft: 'auto' }}>
+          {version}
+        </Typography>
       );
     }
     return (
       <MuiThemeProvider theme={this.theme}>
         <div>
-          <AppBar position='static'>
+          <AppBar position="static">
             <Toolbar>
-              <Link to='/' style={{ textDecoration: 'none' }}>
-                <Typography variant='h6' style={{color: 'white'}}>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <Typography variant="h6" style={{ color: 'white' }}>
                   Bill Split
                 </Typography>
               </Link>
               {devVersionJSX}
             </Toolbar>
           </AppBar>
-          <div style={{
-            maxWidth: '500px',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginBottom: '16px',
-            paddingTop: '32px',
-          }}
+          <div
+            style={{
+              maxWidth: '500px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginBottom: '16px',
+              paddingTop: '32px',
+            }}
           >
             <BillSplit />
           </div>

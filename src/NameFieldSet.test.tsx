@@ -9,18 +9,16 @@ describe('NameFieldSet', () => {
   let mockFunction: jest.Mock;
   let mockReduxSetNames: jest.Mock;
   beforeEach(async () => {
-    mockHistory = {push: jest.fn()};
+    mockHistory = { push: jest.fn() };
     mockFunction = jest.fn();
     mockReduxSetNames = jest.fn();
   });
 
   it('should have a disabled Split Bill button', () => {
     const names = INITIAL_STATE.names;
-    const nameFieldSetWrapper = shallow(<NameFieldSet
-      names={names}
-      reduxSetNames={mockFunction}
-      history={mockFunction}
-      />);
+    const nameFieldSetWrapper = shallow(
+      <NameFieldSet names={names} reduxSetNames={mockFunction} history={mockFunction} />,
+    );
     const splitBtn = nameFieldSetWrapper.find('#splitBtn');
     expect(splitBtn.props().disabled).toEqual(true);
   });
@@ -28,11 +26,8 @@ describe('NameFieldSet', () => {
   it('should not have a disabled Split Bill button', () => {
     const names = INITIAL_STATE.names;
     const nameFieldSetWrapper = shallow(
-      <NameFieldSet
-        history={mockHistory}
-        names={names}
-        reduxSetNames={mockFunction}
-      />);
+      <NameFieldSet history={mockHistory} names={names} reduxSetNames={mockFunction} />,
+    );
     nameFieldSetWrapper.setState({ names: ['Jason', 'Vinny'] });
     const splitBtn = nameFieldSetWrapper.find('#splitBtn');
     expect(splitBtn.props().disabled).toEqual(false);
@@ -40,11 +35,9 @@ describe('NameFieldSet', () => {
 
   it('should ignore blank names', () => {
     const names = INITIAL_STATE.names;
-    const nameFieldSetWrapper = shallow(<NameFieldSet
-      names={names}
-      reduxSetNames={mockFunction}
-      history={mockHistory}
-      />);
+    const nameFieldSetWrapper = shallow(
+      <NameFieldSet names={names} reduxSetNames={mockFunction} history={mockHistory} />,
+    );
     nameFieldSetWrapper.setState({ names: ['Jason', 'Vinny', '', 'Vitor', ' '] });
     const splitBtn = nameFieldSetWrapper.find('#splitBtn');
     splitBtn.simulate('click');
@@ -54,11 +47,8 @@ describe('NameFieldSet', () => {
   it('should add a name', () => {
     const names = INITIAL_STATE.names;
     const nameFieldSetWrapper = shallow(
-      <NameFieldSet
-        names={names}
-        reduxSetNames={mockReduxSetNames}
-        history={mockHistory}
-      />);
+      <NameFieldSet names={names} reduxSetNames={mockReduxSetNames} history={mockHistory} />,
+    );
     nameFieldSetWrapper.setState({ names: ['Jason', 'Vinny', 'Vitor'] });
     const addBtn = nameFieldSetWrapper.find('#addBtn');
     addBtn.simulate('click');

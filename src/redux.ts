@@ -3,13 +3,13 @@ import { createStore } from 'redux';
 
 export const INITIAL_STATE = {
   items: [
-  {
-    isFocused: false,
-    name: '',
-    payingIndexes: [],
-    price: '',
-    quantity: 1,
-  },
+    {
+      isFocused: false,
+      name: '',
+      payingIndexes: [],
+      price: '',
+      quantity: 1,
+    },
   ],
   names: ['', ''],
 };

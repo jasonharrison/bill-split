@@ -28,13 +28,12 @@
     "typescript": "3.4.5"
   },
   "scripts": {
-    "autopre": "yarn run lint:fix && yarn run precommit",
+    "autopre": "yarn run lint && yarn run precommit",
     "start": "REACT_APP_VERSION=`git rev-parse --short HEAD` react-scripts start",
     "build": "CI=false react-scripts build",
     "dev": "yarn run start",
-    "fix": "yarn run lint:fix",
-    "lint": "tslint -c ./tslint.json --project ./tsconfig.json",
-    "lint:fix": "tslint --fix -c ./tslint.json --project ./tsconfig.json",
+    "fix": "yarn run lint",
+    "lint": "eslint --fix --ext .ts,.tsx src/",
     "precommit": "yarn run verify-lint && yarn run build && yarn run test",
     "pre": "yarn run precommit",
     "test": "react-scripts test --watchAll=false",
@@ -42,7 +41,7 @@
     "test:coverage": "react-scripts test --coverage --forceExit --detectOpenHandles --watchAll=false",
     "test:coveralls": "cat coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts eject",
-    "verify-lint": "tslint -c tslint.json 'src/*.ts*'"
+    "verify-lint": "eslint --ext .ts,.tsx src/"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,6 +59,9 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^1.17.0"
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.17.1"
   }
 }

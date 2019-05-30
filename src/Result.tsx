@@ -29,14 +29,15 @@ export class Result extends React.Component<IResultSetProps> {
         const perPersonCost = (item.price * item.quantity) / item.payingIndexes.length;
         if (name in namesPaying) {
           namesPaying[name].items.push(
-            <p key={(itemIndex + '-' + payingIndex)}>
+            <p key={itemIndex + '-' + payingIndex}>
               <i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b>
-            </p>);
+            </p>,
+          );
           namesPaying[name].personTotal += perPersonCost;
         } else {
           namesPaying[name] = {
             items: [
-              <p key={(itemIndex + '-' + payingIndex)}>
+              <p key={itemIndex + '-' + payingIndex}>
                 <i>{item.quantity}x</i> {item.name}: <b>{moneyDecimalToString(perPersonCost)}</b>
               </p>,
             ],
@@ -46,8 +47,8 @@ export class Result extends React.Component<IResultSetProps> {
       });
     });
     const resetButton = (
-      <Link to='/'>
-        <Button variant='contained' color='primary' onClick={this.reset}>
+      <Link to="/">
+        <Button variant="contained" color="primary" onClick={this.reset}>
           <NavigateBeforeIcon style={{ marginRight: '8px' }} />
           Start again
         </Button>
@@ -55,19 +56,19 @@ export class Result extends React.Component<IResultSetProps> {
     );
     return (
       <div>
-        {
-          Object.keys(namesPaying).map((key, index) => (
-            <Card key={key + ' ' + index} style={{ marginBottom: '16px' }}>
-              <CardContent>
-                <Typography variant='h5' component='h2'>
-                  {key}
-                </Typography>
-                {namesPaying[key].items}
-                <p><b>{key}'s</b> total: <b>{moneyDecimalToString(namesPaying[key].personTotal)}</b></p>
-              </CardContent>
-            </Card>
-          ))
-        }
+        {Object.keys(namesPaying).map((key, index) => (
+          <Card key={key + ' ' + index} style={{ marginBottom: '16px' }}>
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                {key}
+              </Typography>
+              {namesPaying[key].items}
+              <p>
+                <b>{key}&apos;s</b> total: <b>{moneyDecimalToString(namesPaying[key].personTotal)}</b>
+              </p>
+            </CardContent>
+          </Card>
+        ))}
         {resetButton}
       </div>
     );
@@ -75,12 +76,11 @@ export class Result extends React.Component<IResultSetProps> {
 
   private reset = () => {
     this.props.reduxReset();
-  }
+  };
 
   private getNameByIndex = (index: number) => {
     return this.props.names[index];
-  }
-
+  };
 }
 
 // AppContainer.js
