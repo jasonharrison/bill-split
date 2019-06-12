@@ -1,5 +1,4 @@
 import AppBar from '@material-ui/core/AppBar';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
@@ -9,11 +8,6 @@ import './App.css';
 import { BillSplit } from './BillSplit';
 
 class App extends React.Component<any, any> {
-  public theme = createMuiTheme({
-    typography: {
-      useNextVariants: true,
-    },
-  });
 
   public render() {
     const devMode = process.env.NODE_ENV === 'development';
@@ -27,7 +21,6 @@ class App extends React.Component<any, any> {
       );
     }
     return (
-      <MuiThemeProvider theme={this.theme}>
         <div>
           <AppBar position="static">
             <Toolbar>
@@ -51,7 +44,6 @@ class App extends React.Component<any, any> {
             <BillSplit />
           </div>
         </div>
-      </MuiThemeProvider>
     );
   }
 }
