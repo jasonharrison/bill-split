@@ -100,7 +100,7 @@ export class NameFieldSet extends React.Component<INameFieldSetProps, INameField
     this.setState({ names: [...this.state.names, ''] });
   };
 
-  private remove = (index: number) => (event: React.MouseEvent<HTMLElement>) => {
+  private remove = (index: number) => () => {
     const names = [...this.state.names];
     names.splice(index, 1);
     this.setState({ names });

@@ -179,7 +179,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     this.setState({ items });
   };
 
-  private remove = (itemIndex: number) => (event: React.MouseEvent<HTMLElement>) => {
+  private remove = (itemIndex: number) => () => {
     const items: IItemInternal[] = [...this.state.items];
     items.splice(itemIndex, 1);
     this.setState({ items });
@@ -246,7 +246,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     this.setState({ items });
   };
 
-  private itemQtyToggleFocus = (index: number, focused: boolean) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  private itemQtyToggleFocus = (index: number, focused: boolean) => () => {
     const items: IItemInternal[] = [...this.state.items];
     items[index].isFocused = focused;
     if (!focused) {
@@ -273,7 +273,7 @@ export class ItemFieldSet extends React.Component<IItemFieldSetProps, IItemField
     return s === null || s.match(/^ *$/) !== null;
   };
 
-  private payingForItemToggle = (itemIdx: number, nameIdx: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  private payingForItemToggle = (itemIdx: number, nameIdx: number) => () => {
     const items: IItemInternal[] = [...this.state.items];
     if (items[itemIdx].payingIndexes.indexOf(nameIdx) !== -1) {
       items[itemIdx] = {
